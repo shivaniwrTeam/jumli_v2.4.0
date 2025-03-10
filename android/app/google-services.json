@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "779549950010",
+    "project_id": "jumli-834c7",
+    "storage_bucket": "jumli-834c7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779549950010:android:5ee16f07fb2399096bf503",
+        "android_client_info": {
+          "package_name": "com.jumilapp.africa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779549950010-pl3vujrs4g9ac3ea83o8vcuifg8bsn5k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jumilapp.africa",
+            "certificate_hash": "4cd56deeeb4613231f689af5e46f5e76e2ec2da2"
+          }
+        },
+        {
+          "client_id": "779549950010-4jsofdva66l2320ie9im2bo6p330j439.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI93wPJT5rNcWEcAVJXfFDN-dEWPiiFrw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779549950010-4jsofdva66l2320ie9im2bo6p330j439.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "779549950010-5v9pcg6b6deumfbhvjnejck6dk7o8100.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.jumilapp.africa"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
