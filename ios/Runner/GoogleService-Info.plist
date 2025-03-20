@@ -3,19 +3,19 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>779549950010-5v9pcg6b6deumfbhvjnejck6dk7o8100.apps.googleusercontent.com</string>
+	<string>779549950010-nflld00al4ptmtsd7m5696djep15r258.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.779549950010-5v9pcg6b6deumfbhvjnejck6dk7o8100</string>
+	<string>com.googleusercontent.apps.779549950010-nflld00al4ptmtsd7m5696djep15r258</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>779549950010-pl3vujrs4g9ac3ea83o8vcuifg8bsn5k.apps.googleusercontent.com</string>
+	<string>779549950010-kfc53m9hu21rktop5f5kk2i808rivdsp.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAC27TREu_55_DlE08ElO4QiAJnFO462EE</string>
+	<string>AIzaSyDqlv-DKZR-zdqFdVhD1LIfpTerpql_2BE</string>
 	<key>GCM_SENDER_ID</key>
 	<string>779549950010</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.jumilapp.africa</string>
+	<string>com.jumli.appafrica</string>
 	<key>PROJECT_ID</key>
 	<string>jumli-834c7</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:779549950010:ios:3d6c85c2763affe26bf503</string>
+	<string>1:779549950010:ios:4d51755ecf610f356bf503</string>
 </dict>
 </plist>

@@ -31,7 +31,7 @@ if (flutterVersionName == null) {
 
 
 android {
-    namespace "com.jumilapp.africa"
+    namespace "com.jumli.appafrica"
     compileSdkVersion 35
     //ndkVersion "25.1.8937393"
     //buildToolsVersion "30.0.3"
@@ -55,7 +55,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.jumilapp.africa"
+        applicationId "com.jumli.appafrica"
         minSdkVersion 24
         targetSdkVersion 35
         multiDexEnabled true

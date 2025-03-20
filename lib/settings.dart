@@ -20,7 +20,7 @@ class PaymentGateway {
 class AppSettings {
   /// Basic Settings
   static const String applicationName = 'Jumli';
-  static const String androidPackageName = 'com.jumilapp.africa';
+  static const String androidPackageName = 'com.jumli.appafrica';
   static const String shareAppText = "Share this App";
 
   static const String hostUrl = "https://admin.jumli.africa";

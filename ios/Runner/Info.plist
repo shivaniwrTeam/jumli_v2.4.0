@@ -29,7 +29,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>app-1-779549950010-ios-3d6c85c2763affe26bf503</string>
+				<string>app-1-779549950010-ios-4d51755ecf610f356bf503</string>
 			</array>
 		</dict>
 		<dict>
@@ -37,7 +37,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.779549950010-5v9pcg6b6deumfbhvjnejck6dk7o8100</string>
+				<string>com.googleusercontent.apps.779549950010-nflld00al4ptmtsd7m5696djep15r258</string>
 			</array>
 		</dict>
 		<dict>
@@ -54,7 +54,7 @@
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<false/>
 	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-3940256099942544~1458002511</string>
+	<string>ca-app-pub-9363653195588053~8095441422</string>
 	<key>GADNativeAdValidatorEnabled</key>
 	<false/>
 	<key>GIDClientID</key>

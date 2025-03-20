@@ -39,21 +39,21 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCI93wPJT5rNcWEcAVJXfFDN-dEWPiiFrw',
-    appId: '1:779549950010:android:5ee16f07fb2399096bf503',
+    appId: '1:779549950010:android:90b68e06ab50c2a46bf503',
     messagingSenderId: '779549950010',
     projectId: 'jumli-834c7',
     storageBucket: 'jumli-834c7.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAC27TREu_55_DlE08ElO4QiAJnFO462EE',
-    appId: '1:779549950010:ios:3d6c85c2763affe26bf503',
+    apiKey: 'AIzaSyDqlv-DKZR-zdqFdVhD1LIfpTerpql_2BE',
+    appId: '1:779549950010:ios:4d51755ecf610f356bf503',
     messagingSenderId: '779549950010',
     projectId: 'jumli-834c7',
     storageBucket: 'jumli-834c7.firebasestorage.app',
-    androidClientId: '779549950010-pl3vujrs4g9ac3ea83o8vcuifg8bsn5k.apps.googleusercontent.com',
-    iosClientId: '779549950010-5v9pcg6b6deumfbhvjnejck6dk7o8100.apps.googleusercontent.com',
-    iosBundleId: 'com.jumilapp.africa',
+    androidClientId: '779549950010-kfc53m9hu21rktop5f5kk2i808rivdsp.apps.googleusercontent.com',
+    iosClientId: '779549950010-nflld00al4ptmtsd7m5696djep15r258.apps.googleusercontent.com',
+    iosBundleId: 'com.jumli.appafrica',
   );
 
 }

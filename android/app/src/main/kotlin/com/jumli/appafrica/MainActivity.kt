@@ -1,4 +1,4 @@
-package com.jumilapp.africa
+package com.jumli.appafrica
 
 
 import io.flutter.embedding.android.FlutterActivity
