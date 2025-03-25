@@ -1,9 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24.486" height="24.487" viewBox="0 0 24.486 24.487">
-  <g id="msg_send_icon" transform="translate(-4674.964 59.45)">
-    <g id="Icon_feather-send" data-name="Icon feather-send" transform="translate(4672.964 -61.036)">
-      <path id="Path_329" data-name="Path 329" d="M28.63,3,16.5,15.13" transform="translate(-3.557 0)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-      <path id="Path_330" data-name="Path 330" d="M25.072,3,17.347,25.072,12.933,15.14,3,10.725Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-    </g>
-    <rect id="Rectangle_1263" data-name="Rectangle 1263" width="24" height="24" transform="translate(4675 -59)" fill="none"/>
-  </g>
+<svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_246_240)">
+<path d="M23.0734 1.914L10.9434 14.044" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M23.072 1.914L15.347 23.986L10.933 14.054L1 9.639L23.072 1.914Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_246_240">
+<rect width="24.486" height="24.487" fill="white" transform="translate(0 0.5)"/>
+</clipPath>
+</defs>
 </svg>
