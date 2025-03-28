@@ -7,7 +7,7 @@ import 'package:eClassify/data/model/custom_field/custom_field_model.dart';
 import 'package:eClassify/data/model/item/item_model.dart';
 import 'package:eClassify/ui/screens/item/add_item_screen/custom_filed_structure/custom_field.dart';
 import 'package:eClassify/ui/screens/item/add_item_screen/select_category.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/dynamic_field.dart';
 import 'package:eClassify/utils/cloud_state/cloud_state.dart';
 import 'package:eClassify/utils/custom_text.dart';
@@ -25,9 +25,9 @@ class AddMoreDetailsScreen extends StatefulWidget {
   const AddMoreDetailsScreen(
       {super.key, this.isEdit, this.mainImage, this.otherImage});
 
-  static BlurredRouter route(RouteSettings settings) {
+  static Route route(RouteSettings settings) {
     Map? args = settings.arguments as Map?;
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (context) {
         return BlocProvider.value(
           value:

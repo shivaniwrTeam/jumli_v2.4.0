@@ -1,6 +1,6 @@
 import 'package:eClassify/app/routes.dart';
 import 'package:eClassify/ui/screens/home/home_screen.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/theme/theme.dart';
 import 'package:eClassify/utils/app_icon.dart';
 import 'package:eClassify/utils/custom_text.dart';
@@ -19,7 +19,7 @@ class SellerIntroVerificationScreen extends StatefulWidget {
 
   static Route route(RouteSettings routeSettings) {
     Map? arguments = routeSettings.arguments as Map?;
-    return BlurredRouter(
+    return MaterialPageRoute(
         builder: (_) => SellerIntroVerificationScreen(
             isResubmitted: arguments?["isResubmitted"]));
   }

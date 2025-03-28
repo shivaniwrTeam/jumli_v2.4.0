@@ -6,7 +6,7 @@ import 'package:eClassify/data/cubits/home/fetch_home_all_items_cubit.dart';
 import 'package:eClassify/data/cubits/home/fetch_home_screen_cubit.dart';
 import 'package:eClassify/ui/screens/home/home_screen.dart';
 import 'package:eClassify/ui/screens/item/add_item_screen/confirm_location_screen.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/theme/theme.dart';
 import 'package:eClassify/utils/constant.dart';
 import 'package:eClassify/utils/custom_text.dart';
@@ -34,7 +34,7 @@ class NearbyLocationScreen extends StatefulWidget {
   static Route route(RouteSettings settings) {
     Map? arguments = settings.arguments as Map?;
 
-    return BlurredRouter(
+    return MaterialPageRoute(
         builder: (context) => NearbyLocationScreen(
               from: arguments?['from'],
             ));
@@ -375,22 +375,21 @@ class NearbyLocationScreenState extends State<NearbyLocationScreen>
         resizeToAvoidBottomInset: true,
         extendBody: true,
         backgroundColor: context.color.secondaryColor,
-        appBar: UiUtils.buildAppBar(context,
-            showBackButton: true, title: "nearbyListings".translate(context),),
+        appBar: UiUtils.buildAppBar(
+          context,
+          showBackButton: true,
+          title: "nearbyListings".translate(context),
+        ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
-          children: [
-         topWidget(),
-            Expanded(child: bottomBar())
-          ],
+          children: [topWidget(), Expanded(child: bottomBar())],
         ),
       ),
     );
   }
-  
-  Widget topWidget()
-  {
+
+  Widget topWidget() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -405,246 +404,229 @@ class NearbyLocationScreenState extends State<NearbyLocationScreen>
                 const SizedBox(height: 16),
                 _cameraPosition != null
                     ? Stack(
-                  children: [
-                    ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                BorderRadius.circular(10),
-                                color: context.color.backgroundColor),
-                            height: context.screenHeight * 0.55,
-                            child: GoogleMap(
-                                onCameraMove: (position) {
-                                  _cameraPosition = position;
-                                },
-                                onCameraIdle: () async {
-                                  if (markerMove == false) {
-                                    if (LatLng(
-                                        latitude!, longitude!) ==
-                                        LatLng(
-                                            _cameraPosition!
-                                                .target.latitude,
-                                            _cameraPosition!
-                                                .target.longitude)) {
-                                    } else {
-                                      getLocationFromLatitudeLongitude();
-                                    }
-                                  }
-                                },
-                                initialCameraPosition:
-                                _cameraPosition!,
-                                //onMapCreated: _onMapCreated,
-                                circles: circles,
-                                markers: _markers,
-                                zoomControlsEnabled: false,
-                                minMaxZoomPreference:
-                                const MinMaxZoomPreference(0, 16),
-                                compassEnabled: true,
-                                indoorViewEnabled: true,
-                                mapToolbarEnabled: true,
-                                myLocationButtonEnabled: false,
-                                mapType: MapType.normal,
-                                myLocationEnabled: true,
-                                onMapCreated:
-                                    (GoogleMapController controller) {
-                                  Future.delayed(const Duration(
-                                      milliseconds: 500))
-                                      .then((value) {
-                                    mapController = (controller);
-                                    mapController.animateCamera(
-                                      CameraUpdate.newCameraPosition(
-                                        _cameraPosition!,
-                                      ),
-                                    );
-                                    //preFillLocationWhileEdit();
-                                  });
-                                },
-                                onTap: (latLng) {
-                                  setState(() {
-                                    _markers
-                                        .clear(); // Clear existing markers
-                                    _markers.add(Marker(
-                                      markerId: MarkerId(
-                                          'selectedLocation'),
-                                      position: latLng,
-                                    ));
-                                    latitude = latLng.latitude;
-                                    longitude = latLng.longitude;
+                        children: [
+                          ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: context.color.backgroundColor),
+                                  height: context.screenHeight * 0.55,
+                                  child: GoogleMap(
+                                      onCameraMove: (position) {
+                                        _cameraPosition = position;
+                                      },
+                                      onCameraIdle: () async {
+                                        if (markerMove == false) {
+                                          if (LatLng(latitude!, longitude!) ==
+                                              LatLng(
+                                                  _cameraPosition!
+                                                      .target.latitude,
+                                                  _cameraPosition!
+                                                      .target.longitude)) {
+                                          } else {
+                                            getLocationFromLatitudeLongitude();
+                                          }
+                                        }
+                                      },
+                                      initialCameraPosition: _cameraPosition!,
+                                      //onMapCreated: _onMapCreated,
+                                      circles: circles,
+                                      markers: _markers,
+                                      zoomControlsEnabled: false,
+                                      minMaxZoomPreference:
+                                          const MinMaxZoomPreference(0, 16),
+                                      compassEnabled: true,
+                                      indoorViewEnabled: true,
+                                      mapToolbarEnabled: true,
+                                      myLocationButtonEnabled: false,
+                                      mapType: MapType.normal,
+                                      myLocationEnabled: true,
+                                      onMapCreated:
+                                          (GoogleMapController controller) {
+                                        Future.delayed(const Duration(
+                                                milliseconds: 500))
+                                            .then((value) {
+                                          mapController = (controller);
+                                          mapController.animateCamera(
+                                            CameraUpdate.newCameraPosition(
+                                              _cameraPosition!,
+                                            ),
+                                          );
+                                          //preFillLocationWhileEdit();
+                                        });
+                                      },
+                                      onTap: (latLng) {
+                                        setState(() {
+                                          _markers
+                                              .clear(); // Clear existing markers
+                                          _markers.add(Marker(
+                                            markerId:
+                                                MarkerId('selectedLocation'),
+                                            position: latLng,
+                                          ));
+                                          latitude = latLng.latitude;
+                                          longitude = latLng.longitude;
 
-                                    getLocationFromLatitudeLongitude(
-                                        latLng: latLng);
-                                    _addCircle(
-                                        LatLng(latitude!, longitude!),
-                                        radius); // Get location details
-                                  });
-                                }))),
-                    if (formatedAddress != null)
-                      PositionedDirectional(
-                        start: 15,
-                        top: 15,
-                        end: 15,
-                        child: Container(
-
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: context.color.secondaryColor),
-                          child: Padding(
-                            padding:
-                            const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                            child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Row(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      width: 25,
-                                      height: 25,
-                                      decoration: BoxDecoration(
-                                        color: context
-                                            .color.territoryColor
-                                            .withValues(alpha: 0.15),
-                                        borderRadius:
-                                        BorderRadius.circular(5),
-                                      ),
-                                      child: Icon(
-                                          Icons.location_on_outlined,
-                                          size: 20,
-                                          color: context
-                                              .color.territoryColor),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Expanded(
-                                      child: CustomText(
-                                        [
-                                          if (formatedAddress!.area !=
-                                              null &&
-                                              formatedAddress!
-                                                  .area!.isNotEmpty)
-                                            formatedAddress!.area,
-                                          if (formatedAddress!.city !=
-                                              null &&
-                                              formatedAddress!
-                                                  .city!.isNotEmpty)
-                                            formatedAddress!.city,
-                                          if (formatedAddress!
-                                              .state !=
-                                              null &&
-                                              formatedAddress!
-                                                  .state!.isNotEmpty)
-                                            formatedAddress!.state,
-                                          if (formatedAddress!
-                                              .country !=
-                                              null &&
-                                              formatedAddress!
-                                                  .country!
-                                                  .isNotEmpty)
-                                            formatedAddress!.country
-                                        ].join(", ").isEmpty
-                                            ? "____"
-                                            : [
-                                          if (formatedAddress!
-                                              .area !=
-                                              null &&
-                                              formatedAddress!
-                                                  .area!
-                                                  .isNotEmpty)
-                                            formatedAddress!
-                                                .area,
-                                          if (formatedAddress!
-                                              .city !=
-                                              null &&
-                                              formatedAddress!
-                                                  .city!
-                                                  .isNotEmpty)
-                                            formatedAddress!
-                                                .city,
-                                          if (formatedAddress!
-                                              .state !=
-                                              null &&
-                                              formatedAddress!
-                                                  .state!
-                                                  .isNotEmpty)
-                                            formatedAddress!
-                                                .state,
-                                          if (formatedAddress!
-                                              .country !=
-                                              null &&
-                                              formatedAddress!
-                                                  .country!
-                                                  .isNotEmpty)
-                                            formatedAddress!
-                                                .country
-                                        ].join(", "),
-                                        overflow:
-                                        TextOverflow.ellipsis,
-                                        softWrap: true,
-                                        maxLines: 3,
-                                        fontSize: context.font.normal,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    )
-                                  ],
-                                )),
-                          ),
-                        ),
-                      ),
-                    PositionedDirectional(
-                      end: 5,
-                      bottom: 5,
-                      child: Card(
-                        child: InkWell(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: const Icon(
-                              Icons.my_location_sharp,
-                              size: 30,
-                              // Change the icon color if needed
+                                          getLocationFromLatitudeLongitude(
+                                              latLng: latLng);
+                                          _addCircle(
+                                              LatLng(latitude!, longitude!),
+                                              radius); // Get location details
+                                        });
+                                      }))),
+                          if (formatedAddress != null)
+                            PositionedDirectional(
+                              start: 15,
+                              top: 15,
+                              end: 15,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: context.color.secondaryColor),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                  child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            width: 25,
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                              color: context
+                                                  .color.territoryColor
+                                                  .withValues(alpha: 0.15),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: Icon(
+                                                Icons.location_on_outlined,
+                                                size: 20,
+                                                color: context
+                                                    .color.territoryColor),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Expanded(
+                                            child: CustomText(
+                                              [
+                                                if (formatedAddress!.area !=
+                                                        null &&
+                                                    formatedAddress!
+                                                        .area!.isNotEmpty)
+                                                  formatedAddress!.area,
+                                                if (formatedAddress!.city !=
+                                                        null &&
+                                                    formatedAddress!
+                                                        .city!.isNotEmpty)
+                                                  formatedAddress!.city,
+                                                if (formatedAddress!.state !=
+                                                        null &&
+                                                    formatedAddress!
+                                                        .state!.isNotEmpty)
+                                                  formatedAddress!.state,
+                                                if (formatedAddress!.country !=
+                                                        null &&
+                                                    formatedAddress!
+                                                        .country!.isNotEmpty)
+                                                  formatedAddress!.country
+                                              ].join(", ").isEmpty
+                                                  ? "____"
+                                                  : [
+                                                      if (formatedAddress!
+                                                                  .area !=
+                                                              null &&
+                                                          formatedAddress!
+                                                              .area!.isNotEmpty)
+                                                        formatedAddress!.area,
+                                                      if (formatedAddress!
+                                                                  .city !=
+                                                              null &&
+                                                          formatedAddress!
+                                                              .city!.isNotEmpty)
+                                                        formatedAddress!.city,
+                                                      if (formatedAddress!
+                                                                  .state !=
+                                                              null &&
+                                                          formatedAddress!
+                                                              .state!
+                                                              .isNotEmpty)
+                                                        formatedAddress!.state,
+                                                      if (formatedAddress!
+                                                                  .country !=
+                                                              null &&
+                                                          formatedAddress!
+                                                              .country!
+                                                              .isNotEmpty)
+                                                        formatedAddress!.country
+                                                    ].join(", "),
+                                              overflow: TextOverflow.ellipsis,
+                                              softWrap: true,
+                                              maxLines: 3,
+                                              fontSize: context.font.normal,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          )
+                                        ],
+                                      )),
+                                ),
+                              ),
                             ),
-                          ),
-                          onTap: () async {
-                            Position position =
-                            await Geolocator.getCurrentPosition(
-                                locationSettings:
-                                LocationSettings(
-                                    accuracy: LocationAccuracy
-                                        .high));
+                          PositionedDirectional(
+                            end: 5,
+                            bottom: 5,
+                            child: Card(
+                              child: InkWell(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: const Icon(
+                                    Icons.my_location_sharp,
+                                    size: 30,
+                                    // Change the icon color if needed
+                                  ),
+                                ),
+                                onTap: () async {
+                                  Position position =
+                                      await Geolocator.getCurrentPosition(
+                                          locationSettings: LocationSettings(
+                                              accuracy: LocationAccuracy.high));
 
-                            _markers
-                                .clear(); // Clear existing markers
-                            _markers.add(Marker(
-                              markerId: MarkerId('selectedLocation'),
-                              position: LatLng(position.latitude,
-                                  position.longitude),
-                            ));
+                                  _markers.clear(); // Clear existing markers
+                                  _markers.add(Marker(
+                                    markerId: MarkerId('selectedLocation'),
+                                    position: LatLng(
+                                        position.latitude, position.longitude),
+                                  ));
 
-                            _cameraPosition = CameraPosition(
-                              target: LatLng(position.latitude,
-                                  position.longitude),
-                              zoom: 14.4746,
-                              bearing: 0,
-                            );
-                            latitude = position.latitude;
-                            longitude = position.longitude;
-                            getLocationFromLatitudeLongitude();
-                            _addCircle(
-                                LatLng(position.latitude,
-                                    position.longitude),
-                                radius);
-                            mapController.animateCamera(
-                              CameraUpdate.newCameraPosition(
-                                  _cameraPosition!),
-                            );
-                            setState(() {});
-                          },
-                        ),
-                      ),
-                    )
-                  ],
-                )
+                                  _cameraPosition = CameraPosition(
+                                    target: LatLng(
+                                        position.latitude, position.longitude),
+                                    zoom: 14.4746,
+                                    bearing: 0,
+                                  );
+                                  latitude = position.latitude;
+                                  longitude = position.longitude;
+                                  getLocationFromLatitudeLongitude();
+                                  _addCircle(
+                                      LatLng(position.latitude,
+                                          position.longitude),
+                                      radius);
+                                  mapController.animateCamera(
+                                    CameraUpdate.newCameraPosition(
+                                        _cameraPosition!),
+                                  );
+                                  setState(() {});
+                                },
+                              ),
+                            ),
+                          )
+                        ],
+                      )
                     : Container(),
                 const SizedBox(height: 18),
               ],
@@ -668,11 +650,10 @@ class NearbyLocationScreenState extends State<NearbyLocationScreen>
           value: radius,
           min: double.parse(Constant.minRadius),
           activeColor: context.color.textDefaultColor,
-          inactiveColor:
-          context.color.textLightColor.withValues(alpha: 0.1),
+          inactiveColor: context.color.textLightColor.withValues(alpha: 0.1),
           max: double.parse(Constant.maxRadius),
           divisions: (double.parse(Constant.maxRadius) -
-              double.parse(Constant.minRadius))
+                  double.parse(Constant.minRadius))
               .toInt(),
           label: '${radius.toInt()}\t${"km".translate(context)}',
           onChanged: (value) {
@@ -687,8 +668,7 @@ class NearbyLocationScreenState extends State<NearbyLocationScreen>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CustomText(
-                  '${Constant.minRadius}\t${"km".translate(context)}',
+              CustomText('${Constant.minRadius}\t${"km".translate(context)}',
                   color: context.color.textDefaultColor,
                   fontWeight: FontWeight.w500),
               CustomText(

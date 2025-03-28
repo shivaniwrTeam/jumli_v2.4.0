@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:eClassify/app/routes.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/custom_text_form_field.dart';
 import 'package:eClassify/ui/theme/theme.dart';
 import 'package:eClassify/utils/custom_text.dart';
@@ -14,8 +14,8 @@ import 'package:flutter/material.dart';
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
 
-  static BlurredRouter route(RouteSettings routeSettings) {
-    return BlurredRouter(
+  static Route route(RouteSettings routeSettings) {
+    return MaterialPageRoute(
       builder: (_) => const ForgotPasswordScreen(),
     );
   }
@@ -43,7 +43,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top:25.0),
+                  padding: const EdgeInsets.only(top: 25.0),
                   child: Align(
                     alignment: AlignmentDirectional.bottomEnd,
                     child: FittedBox(

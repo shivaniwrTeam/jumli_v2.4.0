@@ -9,7 +9,7 @@ import 'package:eClassify/ui/screens/home/widgets/home_sections_adapter.dart';
 import 'package:eClassify/ui/screens/home/widgets/item_horizontal_card.dart';
 import 'package:eClassify/ui/screens/main_activity.dart';
 import 'package:eClassify/ui/screens/native_ads_screen.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/errors/no_data_found.dart';
 import 'package:eClassify/ui/screens/widgets/shimmerLoadingContainer.dart';
 import 'package:eClassify/ui/theme/theme.dart';
@@ -40,7 +40,7 @@ class ItemsList extends StatefulWidget {
 
   static Route route(RouteSettings routeSettings) {
     Map? arguments = routeSettings.arguments as Map?;
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (_) => ItemsList(
         categoryId: arguments?['catID'] as String,
         categoryName: arguments?['catName'],
@@ -172,7 +172,8 @@ class ItemsListState extends State<ItemsList> {
                         decoration: BoxDecoration(
                             border: Border.all(
                                 width: 1,
-                                color: context.color.textLightColor.withValues(alpha: 0.18)),
+                                color: context.color.textLightColor
+                                    .withValues(alpha: 0.18)),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(10)),
                             color: context.color.primaryColor),
@@ -221,7 +222,8 @@ class ItemsListState extends State<ItemsList> {
                         decoration: BoxDecoration(
                           border: Border.all(
                               width: 1,
-                              color: context.color.textLightColor.withValues(alpha: 0.18)),
+                              color: context.color.textLightColor
+                                  .withValues(alpha: 0.18)),
                           color: context.color.secondaryColor,
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -249,7 +251,8 @@ class ItemsListState extends State<ItemsList> {
                         decoration: BoxDecoration(
                           border: Border.all(
                               width: 1,
-                              color: context.color.textLightColor.withValues(alpha: 0.18)),
+                              color: context.color.textLightColor
+                                  .withValues(alpha: 0.18)),
                           color: context.color.secondaryColor,
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -326,7 +329,9 @@ class ItemsListState extends State<ItemsList> {
                 searchBody = {};
                 Constant.itemFilter = null;
 
-                context.read<FetchItemFromCategoryCubit>().fetchItemFromCategory(
+                context
+                    .read<FetchItemFromCategoryCubit>()
+                    .fetchItemFromCategory(
                       categoryId: int.parse(widget.categoryId),
                       search: "",
                     );
@@ -615,8 +620,7 @@ class ItemsListState extends State<ItemsList> {
         }
         return Column(
           children: [
-            Expanded(child: mainChildren(state.itemModel)
-                ),
+            Expanded(child: mainChildren(state.itemModel)),
             if (state.isLoadingMore) UiUtils.progress()
           ],
         );
@@ -638,7 +642,7 @@ class ItemsListState extends State<ItemsList> {
     int gridCount = Constant.nativeAdsAfterItemNumber;
     int total = items.length;
 
-    for (int i = 0; i < total; i += gridCount ) {
+    for (int i = 0; i < total; i += gridCount) {
       if (isList) {
         children.add(_buildListViewSection(
             context, i, min(gridCount, total - i), items));

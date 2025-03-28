@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:eClassify/app/routes.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/theme/theme.dart';
 import 'package:eClassify/utils/app_icon.dart';
 import 'package:eClassify/utils/constant.dart';
@@ -23,7 +23,7 @@ class LocationPermissionScreen extends StatefulWidget {
       LocationPermissionScreenState();
 
   static Route route(RouteSettings routeSettings) {
-    return BlurredRouter(builder: (_) => const LocationPermissionScreen());
+    return MaterialPageRoute(builder: (_) => const LocationPermissionScreen());
   }
 }
 

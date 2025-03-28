@@ -6,7 +6,7 @@ import 'package:eClassify/data/helper/widgets.dart';
 import 'package:eClassify/data/model/verification_request_model.dart';
 import 'package:eClassify/ui/screens/home/home_screen.dart';
 import 'package:eClassify/ui/screens/item/add_item_screen/custom_filed_structure/custom_field.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/custom_text_form_field.dart';
 import 'package:eClassify/ui/screens/widgets/dynamic_field.dart';
 import 'package:eClassify/ui/theme/theme.dart';
@@ -30,7 +30,7 @@ class SellerVerificationScreen extends StatefulWidget {
 
   static Route route(RouteSettings settings) {
     Map? arguments = settings.arguments as Map?;
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (context) {
         return SellerVerificationScreen(
           isResubmitted: arguments?["isResubmitted"],
@@ -131,12 +131,8 @@ class _SellerVerificationScreenState
     );
   }
 
-
-
   Map<String, dynamic> convertToCustomFields(Map<dynamic, dynamic> fieldsData) {
     return fieldsData.map((key, value) {
-
-
       return MapEntry('verification_field[$key]', value.join(', '));
     })
       ..removeWhere((key, value) => value == null); // Remove null entries

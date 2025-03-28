@@ -4,7 +4,7 @@ import 'package:eClassify/data/cubits/chat/get_buyer_chat_users_cubit.dart';
 import 'package:eClassify/data/cubits/chat/get_seller_chat_users_cubit.dart';
 import 'package:eClassify/data/model/chat/chat_user_model.dart';
 import 'package:eClassify/ui/screens/chat/chatTile.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/errors/no_internet.dart';
 import 'package:eClassify/ui/screens/widgets/errors/something_went_wrong.dart';
 import 'package:eClassify/ui/screens/widgets/shimmerLoadingContainer.dart';
@@ -22,7 +22,7 @@ class ChatListScreen extends StatefulWidget {
   const ChatListScreen({super.key});
 
   static Route route(RouteSettings settings) {
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (context) {
         return const ChatListScreen();
       },

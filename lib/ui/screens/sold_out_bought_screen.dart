@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eClassify/data/cubits/fetch_item_buyer_cubit.dart';
 import 'package:eClassify/data/cubits/item/change_my_items_status_cubit.dart';
 import 'package:eClassify/data/model/user_model.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/animated_routes/transparant_route.dart';
 import 'package:eClassify/ui/screens/widgets/blurred_dialog_box.dart';
 import 'package:eClassify/ui/screens/widgets/errors/something_went_wrong.dart';
@@ -33,7 +33,7 @@ class SoldOutBoughtScreen extends StatefulWidget {
 
   static Route route(RouteSettings settings) {
     Map? arguments = settings.arguments as Map?;
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (context) {
         return BlocProvider(
           create: (context) {

@@ -1,6 +1,6 @@
 import 'package:eClassify/data/cubits/utility/fetch_transactions_cubit.dart';
 import 'package:eClassify/data/model/transaction_model.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/errors/no_data_found.dart';
 import 'package:eClassify/ui/screens/widgets/errors/something_went_wrong.dart';
 import 'package:eClassify/ui/screens/widgets/intertitial_ads_screen.dart';
@@ -17,7 +17,7 @@ class TransactionHistory extends StatefulWidget {
   const TransactionHistory({super.key});
 
   static Route route(RouteSettings settings) {
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (context) {
         return BlocProvider(
           create: (context) {
@@ -35,8 +35,6 @@ class TransactionHistory extends StatefulWidget {
 
 class _TransactionHistoryState extends State<TransactionHistory> {
   late final ScrollController _pageScrollController = ScrollController();
-
-
 
   @override
   void initState() {

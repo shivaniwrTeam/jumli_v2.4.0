@@ -8,7 +8,7 @@ import 'package:eClassify/data/model/category_model.dart';
 import 'package:eClassify/data/model/item_filter_model.dart';
 import 'package:eClassify/ui/screens/item/add_item_screen/custom_filed_structure/custom_field.dart';
 import 'package:eClassify/ui/screens/main_activity.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/dynamic_field.dart';
 import 'package:eClassify/ui/theme/theme.dart';
 import 'package:eClassify/utils/api.dart';
@@ -41,7 +41,7 @@ class FilterScreen extends StatefulWidget {
 
   static Route route(RouteSettings routeSettings) {
     Map? arguments = routeSettings.arguments as Map?;
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (_) => BlocProvider(
         create: (context) => FetchCustomFieldsCubit(),
         child: FilterScreen(
@@ -410,23 +410,22 @@ class FilterScreenState extends State<FilterScreen> {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsetsDirectional.only(start: 10.0),
-                    child:
-                        [area, city, _state, country]
+                    child: [area, city, _state, country]
+                            .where((element) =>
+                                element != null && element.isNotEmpty)
+                            .join(", ")
+                            .isNotEmpty
+                        ? CustomText(
+                            [area, city, _state, country]
                                 .where((element) =>
                                     element != null && element.isNotEmpty)
-                                .join(", ")
-                                .isNotEmpty
-                            ? CustomText(
-                                [area, city, _state, country]
-                                    .where((element) =>
-                                        element != null && element.isNotEmpty)
-                                    .join(", "),
-                                overflow: TextOverflow.ellipsis,
-                                softWrap: true,
-                              )
-                            : CustomText("allCities".translate(context),
-                                color: context.color.textDefaultColor
-                                    .withValues(alpha: 0.5)),
+                                .join(", "),
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: true,
+                          )
+                        : CustomText("allCities".translate(context),
+                            color: context.color.textDefaultColor
+                                .withValues(alpha: 0.5)),
                   ),
                 ),
               ],
@@ -552,7 +551,6 @@ class FilterScreenState extends State<FilterScreen> {
 
   Widget minMaxTFF(String minMax) {
     return Container(
-
         alignment: AlignmentDirectional.center,
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -587,7 +585,8 @@ class FilterScreenState extends State<FilterScreen> {
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(
-                        color: context.color.textLightColor.withValues(alpha: 0.2))),
+                        color: context.color.textLightColor
+                            .withValues(alpha: 0.2))),
                 labelStyle: TextStyle(
                     color:
                         context.color.textDefaultColor.withValues(alpha: 0.5)),

@@ -4,7 +4,7 @@ import 'package:eClassify/data/cubits/system/fetch_system_settings_cubit.dart';
 import 'package:eClassify/data/cubits/system/language_cubit.dart';
 import 'package:eClassify/data/helper/widgets.dart';
 import 'package:eClassify/data/model/system_settings_model.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/theme/theme.dart';
 import 'package:eClassify/utils/custom_text.dart';
 import 'package:eClassify/utils/extensions/extensions.dart';
@@ -17,7 +17,7 @@ class LanguagesListScreen extends StatelessWidget {
   const LanguagesListScreen({super.key});
 
   static Route route(RouteSettings settings) {
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (context) => const LanguagesListScreen(),
     );
   }
@@ -29,10 +29,10 @@ class LanguagesListScreen extends StatelessWidget {
             .getSetting(SystemSetting.language) ==
         null) {
       return Scaffold(
-          backgroundColor: context.color.primaryColor,
-          appBar: UiUtils.buildAppBar(context,
-              showBackButton: true, title: "chooseLanguage".translate(context)),
-          body: Center(child: UiUtils.progress()),
+        backgroundColor: context.color.primaryColor,
+        appBar: UiUtils.buildAppBar(context,
+            showBackButton: true, title: "chooseLanguage".translate(context)),
+        body: Center(child: UiUtils.progress()),
       );
     }
 
@@ -120,7 +120,8 @@ class LanguagesListScreen extends StatelessWidget {
                             setting[index]['name_in_english'],
                             color: (language).language['code'] ==
                                     setting[index]['code']
-                                ? context.color.buttonColor.withValues(alpha: 0.7)
+                                ? context.color.buttonColor
+                                    .withValues(alpha: 0.7)
                                 : context.color.textColorDark,
                             fontSize: context.font.small,
                           )

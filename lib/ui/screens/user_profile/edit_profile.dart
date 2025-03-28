@@ -7,7 +7,7 @@ import 'package:eClassify/data/cubits/auth/authentication_cubit.dart';
 import 'package:eClassify/data/cubits/slider_cubit.dart';
 import 'package:eClassify/data/cubits/system/user_details.dart';
 import 'package:eClassify/data/model/user_model.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/custom_text_form_field.dart';
 import 'package:eClassify/ui/screens/widgets/image_cropper.dart';
 import 'package:eClassify/ui/theme/theme.dart';
@@ -43,7 +43,7 @@ class UserProfileScreen extends StatefulWidget {
 
   static Route route(RouteSettings routeSettings) {
     Map arguments = routeSettings.arguments as Map;
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (_) => UserProfileScreen(
         from: arguments['from'] as String,
         popToCurrent: arguments['popToCurrent'] as bool?,

@@ -11,7 +11,7 @@ import 'package:eClassify/data/cubits/auth/login_cubit.dart';
 import 'package:eClassify/data/cubits/system/app_theme_cubit.dart';
 import 'package:eClassify/data/cubits/system/user_details.dart';
 import 'package:eClassify/data/helper/widgets.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/custom_text_form_field.dart';
 import 'package:eClassify/ui/theme/theme.dart';
 import 'package:eClassify/utils/api.dart';
@@ -35,8 +35,8 @@ class SignUpMainScreen extends StatefulWidget {
   @override
   State<SignUpMainScreen> createState() => LoginScreenState();
 
-  static BlurredRouter route(RouteSettings routeSettings) {
-    return BlurredRouter(builder: (_) => SignUpMainScreen());
+  static Route route(RouteSettings routeSettings) {
+    return MaterialPageRoute(builder: (_) => SignUpMainScreen());
   }
 }
 
@@ -232,7 +232,6 @@ class LoginScreenState extends State<SignUpMainScreen> {
                       if (state is AuthenticationSuccess) {
                         Widgets.hideLoder(context);
 
-
                         if (state.type == AuthenticationType.phone) {
                           print(
                               "success auth*******${(state.payload as PhoneLoginPayload).countryCode}");
@@ -243,7 +242,7 @@ class LoginScreenState extends State<SignUpMainScreen> {
                               type: state.type.name,
                               credential: state.credential,
                               countryCode:
-                              "+${(state.payload as PhoneLoginPayload).countryCode}");
+                                  "+${(state.payload as PhoneLoginPayload).countryCode}");
                         } else {
                           context.read<LoginCubit>().login(
                               phoneNumber: state.credential.user!.phoneNumber,
@@ -253,14 +252,12 @@ class LoginScreenState extends State<SignUpMainScreen> {
                               countryCode: null);
                         }
 
-
                         /*context.read<LoginCubit>().login(
                             phoneNumber: state.credential.user!.phoneNumber,
                             firebaseUserId: state.credential.user!.uid,
                             type: state.type.name,
                             credential: state.credential,
                             countryCode: null);*/
-
                       }
 
                       if (state is AuthenticationFail) {
@@ -309,7 +306,6 @@ class LoginScreenState extends State<SignUpMainScreen> {
             onChange: (value) {
               //bool isNumber = value.toString().contains(RegExp(r'^[0-9]+$'));
               bool isNumber = RegExp(r'^\+?[0-9]+$').hasMatch(value.toString());
-
 
               isMobileNumberField =
                   Constant.mobileAuthentication == "1" ? isNumber : false;
@@ -384,15 +380,13 @@ class LoginScreenState extends State<SignUpMainScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top:25.0),
+                padding: const EdgeInsets.only(top: 25.0),
                 child: Align(
                   alignment: AlignmentDirectional.topEnd,
                   child: FittedBox(
                     fit: BoxFit.none,
                     child: MaterialButton(
                       onPressed: () {
-
-
                         HelperUtils.killPreviousPages(context, Routes.main,
                             {"from": "login", "isSkipped": true});
                       },

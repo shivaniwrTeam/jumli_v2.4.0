@@ -3,7 +3,7 @@ import 'dart:ui' as ui;
 import 'package:eClassify/app/app_theme.dart';
 import 'package:eClassify/data/cubits/company_cubit.dart';
 import 'package:eClassify/data/cubits/system/app_theme_cubit.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/blurred_dialog_box.dart';
 import 'package:eClassify/ui/screens/widgets/custom_text_form_field.dart';
 import 'package:eClassify/ui/theme/theme.dart';
@@ -22,7 +22,7 @@ class ContactUs extends StatefulWidget {
   ContactUsState createState() => ContactUsState();
 
   static Route route(RouteSettings routeSettings) {
-    return BlurredRouter(builder: (_) => const ContactUs());
+    return MaterialPageRoute(builder: (_) => const ContactUs());
   }
 }
 
@@ -135,7 +135,7 @@ class ContactUsState extends State<ContactUs> {
   void showEmailDialog(email) {
     Navigator.push(
         context,
-        BlurredRouter(
+        MaterialPageRoute(
           builder: (context) => EmailSendWidget(email: email),
         ));
   }

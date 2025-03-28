@@ -8,7 +8,7 @@ import 'package:eClassify/data/cubits/location/fetch_areas_cubit.dart';
 import 'package:eClassify/data/cubits/location/fetch_cities_cubit.dart';
 import 'package:eClassify/data/cubits/system/app_theme_cubit.dart';
 import 'package:eClassify/data/model/location/city_model.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/errors/no_data_found.dart';
 import 'package:eClassify/ui/screens/widgets/errors/no_internet.dart';
 import 'package:eClassify/ui/screens/widgets/errors/something_went_wrong.dart';
@@ -48,7 +48,7 @@ class CitiesScreen extends StatefulWidget {
   static Route route(RouteSettings settings) {
     Map? arguments = settings.arguments as Map?;
 
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (context) => MultiBlocProvider(
         providers: [
           BlocProvider(
@@ -207,7 +207,6 @@ class CitiesScreenState extends CloudState<CitiesScreen> {
                   ))),
         ),
       ),
-
       elevation: context.watch<AppThemeCubit>().state.appTheme == AppTheme.dark
           ? 0
           : 6,
@@ -223,7 +222,6 @@ class CitiesScreenState extends CloudState<CitiesScreen> {
     return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-
       itemCount: 15,
       separatorBuilder: (context, index) {
         return Container();
@@ -520,8 +518,6 @@ class CitiesScreenState extends CloudState<CitiesScreen> {
                               },
                               child: ListTile(
                                 onTap: () {
-
-
                                   context
                                       .read<FetchAreasCubit>()
                                       .fetchAreas(cityId: city.id!);

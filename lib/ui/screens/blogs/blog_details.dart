@@ -1,5 +1,5 @@
 import 'package:eClassify/data/model/blog_model.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/theme/theme.dart';
 import 'package:eClassify/utils/custom_text.dart';
 import 'package:eClassify/utils/extensions/extensions.dart';
@@ -14,7 +14,7 @@ class BlogDetails extends StatelessWidget {
 
   static Route route(RouteSettings settings) {
     Map? arguments = settings.arguments as Map;
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (context) {
         return BlogDetails(
           blog: arguments['model'],

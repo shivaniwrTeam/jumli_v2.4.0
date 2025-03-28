@@ -15,7 +15,7 @@ import 'package:eClassify/ui/screens/home/home_screen.dart';
 import 'package:eClassify/ui/screens/home/search_screen.dart';
 import 'package:eClassify/ui/screens/item/my_items_screen.dart';
 import 'package:eClassify/ui/screens/user_profile/profile_screen.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/blurred_dialog_box.dart';
 import 'package:eClassify/ui/screens/widgets/maintenance_mode.dart';
 import 'package:eClassify/ui/theme/theme.dart';
@@ -73,7 +73,7 @@ class MainActivity extends StatefulWidget {
 
   static Route route(RouteSettings routeSettings) {
     Map arguments = routeSettings.arguments as Map;
-    return BlurredRouter(
+    return MaterialPageRoute(
         builder: (_) => MainActivity(
               from: arguments['from'] as String,
               itemSlug: arguments['slug'] as String?,
@@ -105,7 +105,6 @@ class MainActivityState extends State<MainActivity>
   void initState() {
     super.initState();
 
-
     rootBundle.loadString(AppIcons.plusIcon).then((value) {
       svgEdit.loadSVG(value);
       svgEdit.change("Path_11299-2",
@@ -136,7 +135,6 @@ class MainActivityState extends State<MainActivity>
           arguments: {"slug": widget.itemSlug!});
     }
   }
-
 
   void addHistory(int index) {
     List<int> stack = navigationStack;

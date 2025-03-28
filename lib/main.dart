@@ -7,14 +7,16 @@ import 'package:eClassify/app/routes.dart';
 import 'package:eClassify/data/cubits/system/app_theme_cubit.dart';
 import 'package:eClassify/data/cubits/system/language_cubit.dart';
 import 'package:eClassify/ui/screens/chat/chat_audio/globals.dart';
+import 'package:eClassify/ui/theme/theme.dart';
 import 'package:eClassify/utils/constant.dart';
+import 'package:eClassify/utils/extensions/extensions.dart';
 import 'package:eClassify/utils/hive_utils.dart';
 import 'package:eClassify/utils/notification/notification_service.dart';
+import 'package:eClassify/utils/ui_utils.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
 
 void main() => initApp();
 
@@ -67,55 +69,56 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-
     AppTheme currentTheme = context.watch<AppThemeCubit>().state.appTheme;
     return BlocBuilder<LanguageCubit, LanguageState>(
       builder: (context, languageState) {
-        return MaterialApp(
+        return AnnotatedRegion(
+          value: UiUtils.getSystemUiOverlayStyle(
+            context: context,
+            statusBarColor: context.color.secondaryColor,
+          ),
+          child: MaterialApp(
+            initialRoute: Routes.splash,
+            navigatorKey: Constant.navigatorKey,
+            title: Constant.appName,
+            debugShowCheckedModeBanner: false,
+            onGenerateRoute: Routes.onGenerateRouted,
+            theme: appThemeData[currentTheme],
+            builder: (context, child) {
+              TextDirection? direction;
 
-          initialRoute: Routes.splash,
-
-          navigatorKey: Constant.navigatorKey,
-          title: Constant.appName,
-          debugShowCheckedModeBanner: false,
-          onGenerateRoute: Routes.onGenerateRouted,
-          theme: appThemeData[currentTheme],
-          builder: (context, child) {
-            TextDirection? direction;
-
-            if (languageState is LanguageLoader) {
-              if (languageState.language['rtl'] == true) {
-                direction = TextDirection.rtl;
+              if (languageState is LanguageLoader) {
+                if (languageState.language['rtl'] == true) {
+                  direction = TextDirection.rtl;
+                } else {
+                  direction = TextDirection.ltr;
+                }
               } else {
                 direction = TextDirection.ltr;
               }
-            } else {
-              direction = TextDirection.ltr;
-            }
-            return MediaQuery(
-              data: MediaQuery.of(context).copyWith(
-                textScaler: const TextScaler.linear(
-                    1.0),
-              ),
-              child: Directionality(
-                textDirection: direction,
-                child: DevicePreview(
-                  enabled: false,
-
-                  builder: (context) {
-                    return child!;
-                  },
+              return MediaQuery(
+                data: MediaQuery.of(context).copyWith(
+                  textScaler: const TextScaler.linear(1.0),
                 ),
-              ),
-            );
-          },
-          localizationsDelegates: const [
-            AppLocalization.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          locale: loadLocalLanguageIfFail(languageState),
+                child: Directionality(
+                  textDirection: direction,
+                  child: DevicePreview(
+                    enabled: false,
+                    builder: (context) {
+                      return child!;
+                    },
+                  ),
+                ),
+              );
+            },
+            localizationsDelegates: const [
+              AppLocalization.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            locale: loadLocalLanguageIfFail(languageState),
+          ),
         );
       },
     );

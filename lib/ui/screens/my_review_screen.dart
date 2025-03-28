@@ -6,7 +6,7 @@ import 'package:eClassify/data/cubits/my_item_review_report_cubit.dart';
 import 'package:eClassify/data/helper/widgets.dart';
 import 'package:eClassify/data/model/my_review_model.dart';
 import 'package:eClassify/ui/screens/home/home_screen.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/errors/no_data_found.dart';
 import 'package:eClassify/ui/screens/widgets/shimmerLoadingContainer.dart';
 import 'package:eClassify/ui/theme/theme.dart';
@@ -30,7 +30,7 @@ class MyReviewScreen extends StatefulWidget {
   MyReviewScreenState createState() => MyReviewScreenState();
 
   static Route route(RouteSettings routeSettings) {
-    return BlurredRouter(builder: (_) => MyReviewScreen());
+    return MaterialPageRoute(builder: (_) => MyReviewScreen());
   }
 }
 
@@ -240,7 +240,8 @@ class MyReviewScreenState extends State<MyReviewScreen>
                       rating: averageRating,
                       itemSize: 25.0,
                       activeColor: Colors.amber,
-                      inactiveColor: context.color.textLightColor.withValues(alpha: 0.1),
+                      inactiveColor:
+                          context.color.textLightColor.withValues(alpha: 0.1),
                       allowHalfRating: true,
                     ),
                     SizedBox(height: 3),
@@ -297,7 +298,8 @@ class MyReviewScreenState extends State<MyReviewScreen>
           child: LinearProgressIndicator(
             value: ratingCount / total,
             backgroundColor: Colors.grey.shade300,
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.deepOrange.withValues(alpha: 0.8)),
+            valueColor: AlwaysStoppedAnimation<Color>(
+                Colors.deepOrange.withValues(alpha: 0.8)),
           ),
         ),
         SizedBox(width: 10),
@@ -502,7 +504,7 @@ class MyReviewScreenState extends State<MyReviewScreen>
                               buttonTitle: "submitBtnLbl".translate(context),
                               radius: 8,
                               width: context.screenWidth / 4,
-                              textColor:secondaryColor_,
+                              textColor: secondaryColor_,
                               buttonColor: context.color.territoryColor,
                               height: 39),
                         ],

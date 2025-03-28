@@ -5,7 +5,7 @@ import 'package:eClassify/data/cubits/utility/item_edit_global.dart';
 import 'package:eClassify/data/model/item/item_model.dart';
 import 'package:eClassify/data/repositories/advertisement_repository.dart';
 import 'package:eClassify/ui/screens/home/widgets/item_horizontal_card.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/errors/no_data_found.dart';
 import 'package:eClassify/ui/screens/widgets/errors/no_internet.dart';
 import 'package:eClassify/ui/screens/widgets/errors/something_went_wrong.dart';
@@ -22,7 +22,7 @@ class MyAdvertisementScreen extends StatefulWidget {
   const MyAdvertisementScreen({super.key});
 
   static Route route(RouteSettings settings) {
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (context) {
         return BlocProvider(
           create: (context) => FetchMyPromotedItemsCubit(),

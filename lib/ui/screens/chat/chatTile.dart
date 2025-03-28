@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eClassify/data/cubits/chat/delete_message_cubit.dart';
 import 'package:eClassify/data/cubits/chat/load_chat_messages.dart';
 import 'package:eClassify/ui/screens/chat/chat_screen.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/theme/theme.dart';
 import 'package:eClassify/utils/app_icon.dart';
 import 'package:eClassify/utils/custom_text.dart';
@@ -57,7 +57,7 @@ class ChatTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, BlurredRouter(
+        Navigator.push(context, MaterialPageRoute(
           builder: (context) {
             currentlyChatingWith = id;
             currentlyChatItemId = itemId;

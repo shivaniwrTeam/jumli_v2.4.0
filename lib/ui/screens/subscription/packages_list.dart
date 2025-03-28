@@ -10,7 +10,7 @@ import 'package:eClassify/data/model/system_settings_model.dart';
 import 'package:eClassify/settings.dart';
 import 'package:eClassify/ui/screens/subscription/widget/featured_ads_subscription_plan_item.dart';
 import 'package:eClassify/ui/screens/subscription/widget/item_listing_subscription_plans_item.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/errors/no_data_found.dart';
 import 'package:eClassify/ui/screens/widgets/errors/no_internet.dart';
 import 'package:eClassify/ui/screens/widgets/errors/something_went_wrong.dart';
@@ -30,7 +30,7 @@ class SubscriptionPackageListScreen extends StatefulWidget {
   const SubscriptionPackageListScreen({super.key});
 
   static Route route(RouteSettings settings) {
-    return BlurredRouter(builder: (context) {
+    return MaterialPageRoute(builder: (context) {
       return MultiBlocProvider(
         providers: [
           BlocProvider(

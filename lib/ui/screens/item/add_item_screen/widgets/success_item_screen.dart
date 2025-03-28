@@ -1,7 +1,7 @@
 import 'package:eClassify/app/routes.dart';
 import 'package:eClassify/data/model/item/item_model.dart';
 import 'package:eClassify/ui/screens/main_activity.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/theme/theme.dart';
 import 'package:eClassify/utils/constant.dart';
 import 'package:eClassify/utils/custom_text.dart';
@@ -18,7 +18,7 @@ class SuccessItemScreen extends StatefulWidget {
 
   static Route route(RouteSettings settings) {
     Map? arguments = settings.arguments as Map?;
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (context) {
         return SuccessItemScreen(
           model: arguments!['model'],

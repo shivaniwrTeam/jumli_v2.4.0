@@ -1,8 +1,7 @@
-
 import 'package:eClassify/app/routes.dart';
 import 'package:eClassify/data/cubits/fetch_blogs_cubit.dart';
 import 'package:eClassify/data/model/blog_model.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/errors/no_data_found.dart';
 import 'package:eClassify/ui/screens/widgets/errors/no_internet.dart';
 import 'package:eClassify/ui/screens/widgets/errors/something_went_wrong.dart';
@@ -20,7 +19,7 @@ class BlogsScreen extends StatefulWidget {
   const BlogsScreen({super.key});
 
   static Route route(RouteSettings settings) {
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (context) {
         return const BlogsScreen();
       },

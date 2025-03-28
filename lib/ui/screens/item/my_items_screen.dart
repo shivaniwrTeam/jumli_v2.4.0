@@ -1,6 +1,6 @@
 import 'package:eClassify/data/cubits/item/fetch_my_item_cubit.dart';
 import 'package:eClassify/ui/screens/item/my_item_tab_screen.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/theme/theme.dart';
 import 'package:eClassify/utils/custom_text.dart';
 import 'package:eClassify/utils/extensions/extensions.dart';
@@ -15,7 +15,7 @@ class ItemsScreen extends StatefulWidget {
   State<ItemsScreen> createState() => MyItemState();
 
   static Route route(RouteSettings routeSettings) {
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (_) => const ItemsScreen(),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:eClassify/data/cubits/profile_setting_cubit.dart';
 import 'package:eClassify/data/helper/widgets.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/theme/theme.dart';
 import 'package:eClassify/utils/extensions/extensions.dart';
 import 'package:eClassify/utils/ui_utils.dart';
@@ -20,7 +20,7 @@ class ProfileSettings extends StatefulWidget {
 
   static Route route(RouteSettings routeSettings) {
     Map? arguments = routeSettings.arguments as Map?;
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (_) => ProfileSettings(
         title: arguments?['title'] as String,
         param: arguments?['param'] as String,

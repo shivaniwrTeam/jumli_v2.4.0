@@ -3,7 +3,7 @@ import 'package:eClassify/data/cubits/favorite/favorite_cubit.dart';
 import 'package:eClassify/data/helper/designs.dart';
 import 'package:eClassify/data/model/item/item_model.dart';
 import 'package:eClassify/ui/screens/home/widgets/item_horizontal_card.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/errors/no_data_found.dart';
 import 'package:eClassify/ui/screens/widgets/errors/no_internet.dart';
 import 'package:eClassify/ui/screens/widgets/errors/something_went_wrong.dart';
@@ -20,7 +20,7 @@ class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
 
   static Route route(RouteSettings settings) {
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (context) {
         return const FavoriteScreen();
       },
@@ -54,7 +54,6 @@ class FavoriteScreenState extends State<FavoriteScreen> {
   void getFavorite() async {
     context.read<FavoriteCubit>().getFavorite();
   }
-
 
   @override
   void dispose() {

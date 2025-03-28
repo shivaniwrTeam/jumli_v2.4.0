@@ -1,5 +1,5 @@
 import 'package:eClassify/ui/screens/home/home_screen.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/theme/theme.dart';
 import 'package:eClassify/utils/constant.dart';
 import 'package:eClassify/utils/custom_text.dart';
@@ -14,7 +14,7 @@ class SellerVerificationCompleteScreen extends StatefulWidget {
   });
 
   static Route route(RouteSettings settings) {
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (context) {
         return SellerVerificationCompleteScreen();
       },

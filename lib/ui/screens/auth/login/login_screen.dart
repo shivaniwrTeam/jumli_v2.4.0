@@ -12,7 +12,7 @@ import 'package:eClassify/data/cubits/system/app_theme_cubit.dart';
 import 'package:eClassify/data/cubits/system/user_details.dart';
 import 'package:eClassify/data/helper/widgets.dart';
 import 'package:eClassify/ui/screens/home/home_screen.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/custom_text_form_field.dart';
 import 'package:eClassify/ui/theme/theme.dart';
 import 'package:eClassify/utils/api.dart';
@@ -41,9 +41,9 @@ class LoginScreen extends StatefulWidget {
   @override
   State<LoginScreen> createState() => LoginScreenState();
 
-  static BlurredRouter route(RouteSettings routeSettings) {
+  static Route route(RouteSettings routeSettings) {
     Map? args = routeSettings.arguments as Map?;
-    return BlurredRouter(
+    return MaterialPageRoute(
         builder: (_) => LoginScreen(
               isDeleteAccount: args?['isDeleteAccount'],
               popToCurrent: args?['popToCurrent'],
@@ -537,7 +537,7 @@ class LoginScreenState extends State<LoginScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top:25.0),
+              padding: const EdgeInsets.only(top: 25.0),
               child: Align(
                 alignment: AlignmentDirectional.bottomEnd,
                 child: FittedBox(
@@ -866,7 +866,7 @@ class LoginScreenState extends State<LoginScreen> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: const EdgeInsets.only(top:25.0),
+            padding: const EdgeInsets.only(top: 25.0),
             child: Align(
               alignment: AlignmentDirectional.bottomEnd,
               child: FittedBox(

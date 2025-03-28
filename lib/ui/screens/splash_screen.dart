@@ -34,7 +34,7 @@ class SplashScreen extends StatefulWidget {
 class SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   bool isTimerCompleted = false;
-  bool isSettingsLoaded = false; 
+  bool isSettingsLoaded = false;
   bool isLanguageLoaded = false;
   late StreamSubscription<List<ConnectivityResult>> subscription;
   bool hasInternet = true;
@@ -192,14 +192,14 @@ class SplashScreenState extends State<SplashScreen>
               },
               child: AnnotatedRegion(
                 value: SystemUiOverlayStyle(
-                  statusBarColor: context.color.territoryColor,
-                ),
+                    statusBarColor: context.color.territoryColor,
+                    systemNavigationBarColor: context.color.territoryColor),
                 child: Scaffold(
                   backgroundColor: context.color.territoryColor,
-                  bottomNavigationBar: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: UiUtils.getSvg(AppIcons.companyLogo),
-                  ),
+                  // bottomNavigationBar: Padding(
+                  //   padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  //   child: UiUtils.getSvg(AppIcons.companyLogo),
+                  // ),
                   body: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,

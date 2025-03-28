@@ -1,6 +1,6 @@
 import 'package:eClassify/data/helper/designs.dart';
 import 'package:eClassify/ui/screens/settings/notifications.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/theme/theme.dart';
 import 'package:eClassify/utils/extensions/extensions.dart';
 import 'package:eClassify/utils/ui_utils.dart';
@@ -13,7 +13,7 @@ class NotificationDetail extends StatefulWidget {
   State<NotificationDetail> createState() => _NotificationDetailState();
 
   static Route route(RouteSettings routeSettings) {
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (_) => const NotificationDetail(),
     );
   }

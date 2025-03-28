@@ -2,7 +2,7 @@ import 'package:eClassify/app/routes.dart';
 import 'package:eClassify/data/cubits/category/fetch_category_cubit.dart';
 import 'package:eClassify/data/model/category_model.dart';
 import 'package:eClassify/ui/screens/item/add_item_screen/widgets/category.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/theme/theme.dart';
 import 'package:eClassify/utils/constant.dart';
 import 'package:eClassify/utils/custom_silver_grid_delegate.dart';
@@ -22,7 +22,7 @@ class CategoryList extends StatefulWidget {
 
   static Route route(RouteSettings routeSettings) {
     Map? args = routeSettings.arguments as Map?;
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (_) => CategoryList(from: args?['from']),
     );
   }

@@ -1,4 +1,3 @@
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
 import 'package:flutter/material.dart';
 
 class CustomImageHeroAnimation extends StatefulWidget {
@@ -43,7 +42,7 @@ class _CustomImageHeroAnimationState extends State<CustomImageHeroAnimation> {
 
         Navigator.push(
             context,
-            BlurredRouter(
+            MaterialPageRoute(
                 builder: (context) {
                   return _CustomHeroDestinationScreen(
                     renderWidgetData: targetWidgetInfo,
@@ -51,7 +50,7 @@ class _CustomImageHeroAnimationState extends State<CustomImageHeroAnimation> {
                     image: widget.image,
                   );
                 },
-                barrierDismiss: true));
+                barrierDismissible: true));
       },
       child: Container(
         key: _key,

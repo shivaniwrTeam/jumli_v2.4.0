@@ -11,7 +11,7 @@ import 'package:eClassify/data/cubits/home/fetch_section_items_cubit.dart';
 import 'package:eClassify/data/helper/designs.dart';
 import 'package:eClassify/data/model/item/item_model.dart';
 import 'package:eClassify/ui/screens/home/widgets/item_horizontal_card.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/errors/no_data_found.dart';
 import 'package:eClassify/ui/screens/widgets/errors/no_internet.dart';
 import 'package:eClassify/ui/screens/widgets/shimmerLoadingContainer.dart';
@@ -28,7 +28,7 @@ class SectionItemsScreen extends StatefulWidget {
 
   static Route route(RouteSettings routeSettings) {
     Map arguments = routeSettings.arguments as Map;
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (_) => SectionItemsScreen(
           title: arguments['title'], sectionId: arguments['sectionId']),
     );

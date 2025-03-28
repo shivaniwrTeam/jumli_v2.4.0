@@ -8,7 +8,7 @@ import 'package:eClassify/data/model/item/item_model.dart';
 import 'package:eClassify/data/model/seller_ratings_model.dart';
 import 'package:eClassify/ui/screens/home/home_screen.dart';
 import 'package:eClassify/ui/screens/home/widgets/home_sections_adapter.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/errors/no_data_found.dart';
 import 'package:eClassify/ui/screens/widgets/shimmerLoadingContainer.dart';
 import 'package:eClassify/ui/theme/theme.dart';
@@ -40,7 +40,7 @@ class SellerProfileScreen extends StatefulWidget {
 
   static Route route(RouteSettings routeSettings) {
     Map? arguments = routeSettings.arguments as Map?;
-    return BlurredRouter(
+    return MaterialPageRoute(
         builder: (_) => MultiBlocProvider(
               providers: [
                 BlocProvider(
@@ -589,7 +589,8 @@ class SellerProfileScreenState extends State<SellerProfileScreen>
                       rating: seller.averageRating!,
                       itemSize: 25.0,
                       activeColor: Colors.amber,
-                      inactiveColor: context.color.textLightColor.withValues(alpha: 0.1),
+                      inactiveColor:
+                          context.color.textLightColor.withValues(alpha: 0.1),
                       allowHalfRating: true,
                     ),
                     SizedBox(height: 3),
@@ -645,7 +646,8 @@ class SellerProfileScreenState extends State<SellerProfileScreen>
           child: LinearProgressIndicator(
             value: ratingCount / total,
             backgroundColor: Colors.grey.shade300,
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.deepOrange.withValues(alpha: 0.8)),
+            valueColor: AlwaysStoppedAnimation<Color>(
+                Colors.deepOrange.withValues(alpha: 0.8)),
           ),
         ),
         SizedBox(width: 10),
@@ -822,7 +824,6 @@ class SellerProfileScreenState extends State<SellerProfileScreen>
       ),
     );
   }
-
 
   Widget buildItemsShimmer(BuildContext context) {
     return Padding(

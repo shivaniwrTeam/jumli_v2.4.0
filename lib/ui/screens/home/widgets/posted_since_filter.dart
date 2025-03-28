@@ -1,5 +1,5 @@
 import 'package:eClassify/ui/screens/filter_screen.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/theme/theme.dart';
 import 'package:eClassify/utils/custom_text.dart';
 import 'package:eClassify/utils/extensions/extensions.dart';
@@ -23,7 +23,7 @@ class PostedSinceFilterScreen extends StatefulWidget {
 
   static Route route(RouteSettings routeSettings) {
     Map? args = routeSettings.arguments as Map?;
-    return BlurredRouter(
+    return MaterialPageRoute(
       builder: (_) => PostedSinceFilterScreen(
         list: args?['list'],
         postedSince: args?['postedSince'],

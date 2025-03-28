@@ -38,7 +38,7 @@ import 'package:eClassify/ui/screens/home/home_screen.dart';
 import 'package:eClassify/ui/screens/home/widgets/grid_list_adapter.dart';
 import 'package:eClassify/ui/screens/home/widgets/home_sections_adapter.dart';
 import 'package:eClassify/ui/screens/subscription/widget/featured_ads_subscription_plan_item.dart';
-import 'package:eClassify/ui/screens/widgets/animated_routes/blur_page_route.dart';
+
 import 'package:eClassify/ui/screens/widgets/blurred_dialog_box.dart';
 import 'package:eClassify/ui/screens/widgets/errors/no_data_found.dart';
 import 'package:eClassify/ui/screens/widgets/errors/no_internet.dart';
@@ -81,7 +81,7 @@ class AdDetailsScreen extends StatefulWidget {
 
   static Route route(RouteSettings routeSettings) {
     Map? arguments = routeSettings.arguments as Map?;
-    return BlurredRouter(
+    return MaterialPageRoute(
         builder: (_) => MultiBlocProvider(
               providers: [
                 BlocProvider(
@@ -144,7 +144,6 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
           double.parse(Constant.defaultLongitude)),
       zoom: 13);
 
-
   @override
   void initState() {
     super.initState();
@@ -204,7 +203,6 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
       }
     }
   }
-
 
   @override
   void dispose() {
@@ -424,8 +422,8 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
                                             color: context.color.buttonColor,
                                           ),
                                           onTap: () async {
-                                            var delete =
-                                                await UiUtils.showBlurredDialoge(
+                                            var delete = await UiUtils
+                                                .showBlurredDialoge(
                                               context,
                                               dialoge: BlurredDialogBox(
                                                 title: "deleteBtnLbl"
@@ -808,7 +806,8 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
             .where((field) => field.value != null && field.value!.isNotEmpty)
             .map((field) => DecoratedBox(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.red.withValues(alpha: 0.0)),
+                    border:
+                        Border.all(color: Colors.red.withValues(alpha: 0.0)),
                   ),
                   child: SizedBox(
                     width: MediaQuery.sizeOf(context).width * .45,
@@ -849,7 +848,6 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
       ),
     );
   }
-
 
   Widget valueContent(List<dynamic>? value) {
     if (((value![0].toString()).startsWith("http") ||
@@ -1505,7 +1503,7 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
                   );
                 }
 
-                Navigator.push(context, BlurredRouter(
+                Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
                     return MultiBlocProvider(
                       providers: [
@@ -1574,7 +1572,7 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
                     UiUtils.checkUser(
                         onNotGuest: () {
                           if (chatedUser != null) {
-                            Navigator.push(context, BlurredRouter(
+                            Navigator.push(context, MaterialPageRoute(
                               builder: (context) {
                                 return MultiBlocProvider(
                                   providers: [
@@ -1816,7 +1814,7 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
                         child: UiUtils.getImage(
                           youtubeVideoThumbnail,
                           fit: BoxFit.cover,
-                          height:270,
+                          height: 270,
                           width: double.maxFinite,
                         ),
                       ),
@@ -1903,7 +1901,6 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
               ),
             ),
           ),
-
           if (model.isFeature != null)
             if (model.isFeature!)
               setTopRowItem(
@@ -2270,8 +2267,8 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
   void _navigateToGoogleMapScreen(BuildContext context) {
     Navigator.push(
       context,
-      BlurredRouter(
-        barrierDismiss: true,
+      MaterialPageRoute(
+        barrierDismissible: true,
         builder: (context) {
           return GoogleMapScreen(
             item: model,
@@ -2282,8 +2279,6 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
       ),
     );
   }
-
-
 
   Widget setLocation() {
     //final LatLng currentPosition = LatLng(model.latitude!, model.longitude!);
@@ -2302,30 +2297,30 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
           height: 5,
         ),
         ClipRRect(
-                borderRadius: BorderRadius.circular(18),
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.28,
-                  child: GoogleMap(
-                    initialCameraPosition: _initialPosition,
-                    zoomControlsEnabled: false,
-                    zoomGesturesEnabled: false,
-                    onTap: (latLng) {
-                      _navigateToGoogleMapScreen(context);
-                    },
-                    mapType: MapType.normal,
-                    markers: {
-                      Marker(
-                        markerId: MarkerId('currentPosition'),
-                        position: _initialPosition.target,
-                        onTap: () {
-                          // Navigate on marker tap
-                          _navigateToGoogleMapScreen(context);
-                        },
-                      )
-                    },
-                  ),
-                ),
-              ),
+          borderRadius: BorderRadius.circular(18),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.28,
+            child: GoogleMap(
+              initialCameraPosition: _initialPosition,
+              zoomControlsEnabled: false,
+              zoomGesturesEnabled: false,
+              onTap: (latLng) {
+                _navigateToGoogleMapScreen(context);
+              },
+              mapType: MapType.normal,
+              markers: {
+                Marker(
+                  markerId: MarkerId('currentPosition'),
+                  position: _initialPosition.target,
+                  onTap: () {
+                    // Navigate on marker tap
+                    _navigateToGoogleMapScreen(context);
+                  },
+                )
+              },
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -2607,8 +2602,10 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
   void navigateToSellerProfile() {
     Navigator.pushNamed(context, Routes.sellerProfileScreen, arguments: {
       "model": model.user!,
-      "total": context.read<FetchSellerRatingsCubit>().totalSellerRatings() ?? 0,
-      "rating": context.read<FetchSellerRatingsCubit>().sellerData()?.averageRating,
+      "total":
+          context.read<FetchSellerRatingsCubit>().totalSellerRatings() ?? 0,
+      "rating":
+          context.read<FetchSellerRatingsCubit>().sellerData()?.averageRating,
     });
   }
 
@@ -2619,7 +2616,7 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
         children: [
           InkWell(
             onTap: () {
-             navigateToSellerProfile();
+              navigateToSellerProfile();
             },
             child: SizedBox(
               height: 60,
@@ -2629,10 +2626,10 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
                 child: model.user!.profile != null && model.user!.profile != ""
                     ? UiUtils.getImage(model.user!.profile!, fit: BoxFit.fill)
                     : UiUtils.getSvg(
-                  AppIcons.defaultPersonLogo,
-                  color: context.color.territoryColor,
-                  fit: BoxFit.none,
-                ),
+                        AppIcons.defaultPersonLogo,
+                        color: context.color.territoryColor,
+                        fit: BoxFit.none,
+                      ),
               ),
             ),
           ),
@@ -2654,7 +2651,8 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          UiUtils.getSvg(AppIcons.verifiedIcon, width: 14, height: 14),
+                          UiUtils.getSvg(AppIcons.verifiedIcon,
+                              width: 14, height: 14),
                           SizedBox(width: 4),
                           CustomText(
                             "verifiedLbl".translate(context),
@@ -2674,8 +2672,13 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
                       fontSize: context.font.large,
                     ),
                   ),
-                  if (context.watch<FetchSellerRatingsCubit>().sellerData() != null &&
-                      context.watch<FetchSellerRatingsCubit>().sellerData()!.averageRating != null)
+                  if (context.watch<FetchSellerRatingsCubit>().sellerData() !=
+                          null &&
+                      context
+                              .watch<FetchSellerRatingsCubit>()
+                              .sellerData()!
+                              .averageRating !=
+                          null)
                     Padding(
                       padding: const EdgeInsets.only(top: 3),
                       child: RichText(
@@ -2683,19 +2686,30 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
                           children: [
                             WidgetSpan(
                               child: Icon(Icons.star_rounded,
-                                  size: 17, color: context.color.textDefaultColor),
+                                  size: 17,
+                                  color: context.color.textDefaultColor),
                             ),
                             TextSpan(
-                              text: '\t${context.watch<FetchSellerRatingsCubit>().sellerData()!.averageRating!.toStringAsFixed(2).toString()}',
-                              style: TextStyle(fontSize: 14, color: context.color.textDefaultColor),
+                              text:
+                                  '\t${context.watch<FetchSellerRatingsCubit>().sellerData()!.averageRating!.toStringAsFixed(2).toString()}',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: context.color.textDefaultColor),
                             ),
                             TextSpan(
                               text: '  |  ',
-                              style: TextStyle(fontSize: 14, color: context.color.textDefaultColor.withOpacity(0.5)),
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: context.color.textDefaultColor
+                                      .withOpacity(0.5)),
                             ),
                             TextSpan(
-                              text: '${context.watch<FetchSellerRatingsCubit>().totalSellerRatings()}\t${"ratings".translate(context)}',
-                              style: TextStyle(fontSize: 14, color: context.color.textDefaultColor.withOpacity(0.3)),
+                              text:
+                                  '${context.watch<FetchSellerRatingsCubit>().totalSellerRatings()}\t${"ratings".translate(context)}',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: context.color.textDefaultColor
+                                      .withOpacity(0.3)),
                             ),
                           ],
                         ),
@@ -2705,8 +2719,7 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
                       model.user!.email != null &&
                       model.user!.email!.isNotEmpty)
                     InkWell(
-                      onTap: ()
-                      {
+                      onTap: () {
                         navigateToSellerProfile();
                       },
                       child: CustomText(
@@ -2719,7 +2732,9 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
               ),
             ),
           ),
-          if (model.user!.showPersonalDetails == 1 && model.user!.mobile != null && model.user!.mobile!.isNotEmpty)
+          if (model.user!.showPersonalDetails == 1 &&
+              model.user!.mobile != null &&
+              model.user!.mobile!.isNotEmpty)
             setIconButtons(
               assetName: AppIcons.message,
               onTap: () {
@@ -2727,13 +2742,16 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
                   isTelephone: false,
                   isSMS: true,
                   isMail: false,
-                  value: formatPhoneNumber(model.user!.mobile!, Constant.defaultCountryCode),
+                  value: formatPhoneNumber(
+                      model.user!.mobile!, Constant.defaultCountryCode),
                   context: context,
                 );
               },
             ),
           SizedBox(width: 10),
-          if (model.user!.showPersonalDetails == 1 && model.user!.mobile != null && model.user!.mobile!.isNotEmpty)
+          if (model.user!.showPersonalDetails == 1 &&
+              model.user!.mobile != null &&
+              model.user!.mobile!.isNotEmpty)
             setIconButtons(
               assetName: AppIcons.call,
               onTap: () {
@@ -2741,7 +2759,8 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
                   isTelephone: true,
                   isSMS: false,
                   isMail: false,
-                  value: formatPhoneNumber(model.user!.mobile!, Constant.defaultCountryCode),
+                  value: formatPhoneNumber(
+                      model.user!.mobile!, Constant.defaultCountryCode),
                   context: context,
                 );
               },
@@ -2750,8 +2769,6 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
       ),
     );
   }
-
-
 
   Widget setIconButtons({
     required String assetName,
