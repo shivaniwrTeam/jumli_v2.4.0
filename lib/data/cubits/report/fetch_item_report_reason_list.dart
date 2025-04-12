@@ -2,6 +2,8 @@ import 'package:eClassify/data/model/data_output.dart';
 import 'package:eClassify/data/model/report_item/reason_model.dart';
 import 'package:eClassify/data/repositories/report_item_repository.dart';
 import 'package:eClassify/settings.dart';
+import 'package:eClassify/utils/extensions/extensions.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class FetchItemReportReasonsListState {}
@@ -43,7 +45,7 @@ class FetchItemReportReasonsListCubit
     extends Cubit<FetchItemReportReasonsListState> {
   FetchItemReportReasonsListCubit() : super(FetchItemReportReasonsInitial());
   final ReportItemRepository _repository = ReportItemRepository();
-  void fetch({bool? forceRefresh}) async {
+  void fetch(BuildContext context, {bool? forceRefresh}) async {
     try {
       if (forceRefresh != true) {
         if (state is FetchItemReportReasonsSuccess) {
@@ -62,7 +64,8 @@ class FetchItemReportReasonsListCubit
         DataOutput<ReportReason> result =
             await _repository.fetchReportReasonsList();
 
-        result.modelList.add(ReportReason(id: -10, reason: "Other"));
+        result.modelList
+            .add(ReportReason(id: -10, reason: "other".translate(context)));
 
         emit(FetchItemReportReasonsSuccess(
           reasons: result.modelList,
@@ -73,7 +76,8 @@ class FetchItemReportReasonsListCubit
           DataOutput<ReportReason> result =
               await _repository.fetchReportReasonsList();
 
-          result.modelList.add(ReportReason(id: -10, reason: "Other"));
+          result.modelList
+              .add(ReportReason(id: -10, reason: "other".translate(context)));
 
           emit(FetchItemReportReasonsSuccess(
             reasons: result.modelList,

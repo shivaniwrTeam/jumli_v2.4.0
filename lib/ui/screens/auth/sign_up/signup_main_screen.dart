@@ -380,7 +380,7 @@ class LoginScreenState extends State<SignUpMainScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 25.0),
+                padding: const EdgeInsets.only(top: 40.0),
                 child: Align(
                   alignment: AlignmentDirectional.topEnd,
                   child: FittedBox(

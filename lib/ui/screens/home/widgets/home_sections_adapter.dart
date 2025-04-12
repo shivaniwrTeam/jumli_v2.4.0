@@ -47,7 +47,7 @@ class HomeSectionsAdapter extends StatelessWidget {
                 ),
                 GridListAdapter(
                   type: ListUiType.List,
-                  height: MediaQuery.of(context).size.height / 3.4,
+                  height: MediaQuery.of(context).size.height / 3.3,
                   listAxis: Axis.horizontal,
                   listSeparator: (BuildContext p0, int p1) => const SizedBox(
                     width: 14,
@@ -236,7 +236,7 @@ class ItemCard extends StatefulWidget {
 
 class _ItemCardState extends State<ItemCard> {
   double likeButtonSize = 32;
-  double imageHeight = 147;
+  double imageHeight = 140;
 
   // Use nullable bool to represent initial state
 

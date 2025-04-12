@@ -326,7 +326,6 @@ class HomeScreenState extends State<HomeScreen>
                   height: 20,
                   width: 150,
                 ),
-
               ],
             ),
             Container(
@@ -485,7 +484,7 @@ class AllItemsWidget extends StatelessWidget {
                     builder: (context, int index, bool isGrid) {
                       int itemIndex = index * crossAxisCount;
                       return SizedBox(
-                        height: MediaQuery.sizeOf(context).height / 3.4,
+                        height: MediaQuery.sizeOf(context).height / 3.3,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

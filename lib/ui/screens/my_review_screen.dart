@@ -65,14 +65,11 @@ class MyReviewScreenState extends State<MyReviewScreen>
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-        appBar: UiUtils.buildAppBar(context,
-            showBackButton: true, title: "myReview".translate(context)),
-        backgroundColor: context.color.backgroundColor,
-        body: ratingsListWidget(),
-      ),
+    return Scaffold(
+      appBar: UiUtils.buildAppBar(context,
+          showBackButton: true, title: "myReview".translate(context)),
+      backgroundColor: context.color.backgroundColor,
+      body: ratingsListWidget(),
     );
   }
 

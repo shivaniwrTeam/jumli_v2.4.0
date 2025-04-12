@@ -130,7 +130,8 @@ class _FeaturedAdsSubscriptionPlansItemState
                       } else if (_selectedGateway == "phonepe") {
                         PaymentGateways.phonepeCheckSum(
                             context: context,
-                            getData: state.paymentIntent["payment_gateway_response"]);
+                            getData: state
+                                .paymentIntent["payment_gateway_response"]);
                       } else if (_selectedGateway == "razorpay") {
                         PaymentGateways.razorpay(
                           orderId: state.paymentIntent["id"].toString(),
@@ -323,7 +324,7 @@ class _FeaturedAdsSubscriptionPlansItemState
                 : null,
             child: Container(
               margin: EdgeInsets.only(top: 17),
-              padding: EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 14),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16.0),
                   border: Border.all(
@@ -364,7 +365,7 @@ class _FeaturedAdsSubscriptionPlansItemState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomText(
-                    '${widget.modelList[index].limit == "unlimited" ? "unlimitedLbl".translate(context) : widget.modelList[index].limit.toString()}\t${"adsLbl".translate(context)}\t\t·\t\t',
+                    '${widget.modelList[index].limit == "unlimited" ? "${"unlimitedLbl".translate(context)}" : widget.modelList[index].limit.toString()}\t${"adsLbl".translate(context)}\t\t·\t\t',
                     overflow: TextOverflow.ellipsis,
                     softWrap: true,
                     color:
@@ -372,7 +373,7 @@ class _FeaturedAdsSubscriptionPlansItemState
                   ),
                   Flexible(
                     child: CustomText(
-                      '${widget.modelList[index].duration.toString()}\t${"days".translate(context)}',
+                      '${widget.modelList[index].duration!.translate(context).toString()}\t${"days".translate(context)}',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       softWrap: true,

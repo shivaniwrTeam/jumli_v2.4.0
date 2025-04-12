@@ -548,9 +548,10 @@ class UiUtils {
       {required BlurDialog dialoge, double? sigmaX, double? sigmaY}) async {
     return await Navigator.push(
       context,
-      MaterialPageRoute(
+      PageRouteBuilder(
         barrierDismissible: true,
-        builder: (context) {
+        opaque: false, // Ensures the background remains visible if needed
+        pageBuilder: (context, animation, secondaryAnimation) {
           if (dialoge is BlurredDialogBox) {
             return dialoge;
           } else if (dialoge is BlurredDialogBuilderBox) {

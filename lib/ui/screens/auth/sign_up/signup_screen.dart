@@ -104,7 +104,7 @@ class _SignupScreenState extends CloudState<SignupScreen> {
                 child: SingleChildScrollView(
                   child: Padding(
                     padding:
-                        const EdgeInsets.only(left: 18.0, right: 18, top: 23),
+                        const EdgeInsets.only(left: 18.0, right: 18, top: 40),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

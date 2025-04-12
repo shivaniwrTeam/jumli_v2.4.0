@@ -302,47 +302,47 @@ class ItemsListState extends State<ItemsList> {
   }
 
   Widget bodyWidget() {
-    return SafeArea(
-      top: false,
-      child: AnnotatedRegion(
-        value: UiUtils.getSystemUiOverlayStyle(
-          context: context,
-          statusBarColor: context.color.secondaryColor,
-        ),
-        child: PopScope(
-          canPop: true,
-          onPopInvokedWithResult: (isPop, result) {
-            Constant.itemFilter = null;
-          },
-          child: Scaffold(
-            backgroundColor: Theme.of(context).colorScheme.primaryColor,
-            appBar: UiUtils.buildAppBar(context,
-                showBackButton: true,
-                title: selectedCategoryName == ""
-                    ? widget.categoryName
-                    : selectedCategoryName),
-            bottomNavigationBar: bottomWidget(),
-            body: RefreshIndicator(
-              onRefresh: () async {
-                // Debug log to check if onRefresh is triggered
+    return AnnotatedRegion(
+      value: UiUtils.getSystemUiOverlayStyle(
+        context: context,
+        statusBarColor: context.color.secondaryColor,
+      ),
+      child: PopScope(
+        canPop: true,
+        onPopInvokedWithResult: (isPop, result) {
+          Constant.itemFilter = null;
+        },
+        child: Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.primaryColor,
+          appBar: UiUtils.buildAppBar(context,
+              showBackButton: true,
+              title: selectedCategoryName == ""
+                  ? widget.categoryName
+                  : selectedCategoryName),
+          bottomNavigationBar: Container(
+              color: Colors.transparent,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                child: bottomWidget(),
+              )),
+          body: RefreshIndicator(
+            onRefresh: () async {
+              // Debug log to check if onRefresh is triggered
 
-                searchBody = {};
-                Constant.itemFilter = null;
+              searchBody = {};
+              Constant.itemFilter = null;
 
-                context
-                    .read<FetchItemFromCategoryCubit>()
-                    .fetchItemFromCategory(
-                      categoryId: int.parse(widget.categoryId),
-                      search: "",
-                    );
-              },
-              color: context.color.territoryColor,
-              child: Column(
-                children: [
-                  searchBarWidget(),
-                  Expanded(child: fetchItems()),
-                ],
-              ),
+              context.read<FetchItemFromCategoryCubit>().fetchItemFromCategory(
+                    categoryId: int.parse(widget.categoryId),
+                    search: "",
+                  );
+            },
+            color: context.color.territoryColor,
+            child: Column(
+              children: [
+                searchBarWidget(),
+                Expanded(child: fetchItems()),
+              ],
             ),
           ),
         ),

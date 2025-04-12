@@ -58,65 +58,62 @@ class _BlogsScreenState extends State<BlogsScreen> {
   @override
   Widget build(BuildContext context) {
     AdHelper.showInterstitialAd();
-    return SafeArea(
-      top: false,
-      child: RefreshIndicator(
-        color: context.color.territoryColor,
-        onRefresh: () async {
-          context.read<FetchBlogsCubit>().fetchBlogs();
-        },
-        child: Scaffold(
-          backgroundColor: context.color.primaryColor,
-          appBar: UiUtils.buildAppBar(context,
-              showBackButton: true, title: "blogs".translate(context)),
-          body: BlocBuilder<FetchBlogsCubit, FetchBlogsState>(
-            builder: (context, state) {
-              if (state is FetchBlogsInProgress) {
-                return buildBlogsShimmer();
-              }
-              if (state is FetchBlogsFailure) {
-                if (state.errorMessage is ApiException) {
-                  if (state.errorMessage.error == "no-internet") {
-                    return NoInternet(
-                      onRetry: () {
-                        context.read<FetchBlogsCubit>().fetchBlogs();
-                      },
-                    );
-                  }
+    return RefreshIndicator(
+      color: context.color.territoryColor,
+      onRefresh: () async {
+        context.read<FetchBlogsCubit>().fetchBlogs();
+      },
+      child: Scaffold(
+        backgroundColor: context.color.primaryColor,
+        appBar: UiUtils.buildAppBar(context,
+            showBackButton: true, title: "blogs".translate(context)),
+        body: BlocBuilder<FetchBlogsCubit, FetchBlogsState>(
+          builder: (context, state) {
+            if (state is FetchBlogsInProgress) {
+              return buildBlogsShimmer();
+            }
+            if (state is FetchBlogsFailure) {
+              if (state.errorMessage is ApiException) {
+                if (state.errorMessage.error == "no-internet") {
+                  return NoInternet(
+                    onRetry: () {
+                      context.read<FetchBlogsCubit>().fetchBlogs();
+                    },
+                  );
                 }
-                return const SomethingWentWrong();
               }
-              if (state is FetchBlogsSuccess) {
-                if (state.blogModel.isEmpty) {
-                  return const NoDataFound();
-                }
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Expanded(
-                      child: ListView.builder(
-                          controller: _pageScrollController,
-                          shrinkWrap: true,
-                          physics: const BouncingScrollPhysics(),
-                          padding: const EdgeInsets.all(16),
-                          itemCount: state.blogModel.length,
-                          itemBuilder: (context, index) {
-                            BlogModel blog = state.blogModel[index];
-
-                            return buildBlogCard(context, blog);
-
-                            // return blog(state, index);
-                          }),
-                    ),
-                    if (state.isLoadingMore) const CircularProgressIndicator(),
-                    if (state.loadingMoreError)
-                      CustomText("somethingWentWrng".translate(context))
-                  ],
-                );
+              return const SomethingWentWrong();
+            }
+            if (state is FetchBlogsSuccess) {
+              if (state.blogModel.isEmpty) {
+                return const NoDataFound();
               }
-              return Container();
-            },
-          ),
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Expanded(
+                    child: ListView.builder(
+                        controller: _pageScrollController,
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        padding: const EdgeInsets.all(16),
+                        itemCount: state.blogModel.length,
+                        itemBuilder: (context, index) {
+                          BlogModel blog = state.blogModel[index];
+
+                          return buildBlogCard(context, blog);
+
+                          // return blog(state, index);
+                        }),
+                  ),
+                  if (state.isLoadingMore) const CircularProgressIndicator(),
+                  if (state.loadingMoreError)
+                    CustomText("somethingWentWrng".translate(context))
+                ],
+              );
+            }
+            return Container();
+          },
         ),
       ),
     );

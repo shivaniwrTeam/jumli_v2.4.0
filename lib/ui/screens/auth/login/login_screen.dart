@@ -285,70 +285,51 @@ class LoginScreenState extends State<LoginScreen> {
             });
             return;
           },
-          child: SafeArea(
-            top: false,
-            child: Scaffold(
-              backgroundColor: context.color.backgroundColor,
-              bottomNavigationBar: !isOtpSent && !sendMailClicked
-                  ? termAndPolicyTxt()
-                  : SizedBox.shrink(),
-              body: BlocListener<LoginCubit, LoginState>(
-                listener: (context, state) {
-                  if (state is LoginSuccess) {
-                    context
-                        .read<UserDetailsCubit>()
-                        .fill(HiveUtils.getUserDetails());
-                    if (state.isProfileCompleted) {
-                      HiveUtils.setUserIsAuthenticated(true);
-                      if (HiveUtils.getCityName() != null &&
-                          HiveUtils.getCityName() != "") {
-                        HelperUtils.killPreviousPages(
-                            context, Routes.main, {"from": "login"});
-                      } else {
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            Routes.locationPermissionScreen, (route) => false);
-                      }
+          child: Scaffold(
+            backgroundColor: context.color.backgroundColor,
+            bottomNavigationBar: !isOtpSent && !sendMailClicked
+                ? termAndPolicyTxt()
+                : SizedBox.shrink(),
+            body: BlocListener<LoginCubit, LoginState>(
+              listener: (context, state) {
+                if (state is LoginSuccess) {
+                  context
+                      .read<UserDetailsCubit>()
+                      .fill(HiveUtils.getUserDetails());
+                  if (state.isProfileCompleted) {
+                    HiveUtils.setUserIsAuthenticated(true);
+                    if (HiveUtils.getCityName() != null &&
+                        HiveUtils.getCityName() != "") {
+                      HelperUtils.killPreviousPages(
+                          context, Routes.main, {"from": "login"});
                     } else {
-                      Navigator.pushNamed(
-                        context,
-                        Routes.completeProfile,
-                        arguments: {
-                          "from": "login",
-                          "popToCurrent": false,
-                        },
-                      );
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          Routes.locationPermissionScreen, (route) => false);
                     }
+                  } else {
+                    Navigator.pushNamed(
+                      context,
+                      Routes.completeProfile,
+                      arguments: {
+                        "from": "login",
+                        "popToCurrent": false,
+                      },
+                    );
                   }
+                }
 
-                  if (state is LoginFailure) {
-                    HelperUtils.showSnackBarMessage(
-                        context, state.errorMessage.toString());
-                  }
-                },
-                child: BlocConsumer<AuthenticationCubit, AuthenticationState>(
-                  listener: (context, state) {
-                    if (state is AuthenticationSuccess) {
-                      Widgets.hideLoder(context);
+                if (state is LoginFailure) {
+                  HelperUtils.showSnackBarMessage(
+                      context, state.errorMessage.toString());
+                }
+              },
+              child: BlocConsumer<AuthenticationCubit, AuthenticationState>(
+                listener: (context, state) {
+                  if (state is AuthenticationSuccess) {
+                    Widgets.hideLoder(context);
 
-                      if (state.type == AuthenticationType.email) {
-                        if (state.credential.user!.emailVerified) {
-                          context.read<LoginCubit>().login(
-                              phoneNumber: state.credential.user!.phoneNumber,
-                              firebaseUserId: state.credential.user!.uid,
-                              type: state.type.name,
-                              credential: state.credential,
-                              countryCode: null);
-                        }
-                      } else if (state.type == AuthenticationType.phone) {
-                        context.read<LoginCubit>().login(
-                            phoneNumber: (state.payload as PhoneLoginPayload)
-                                .phoneNumber,
-                            firebaseUserId: state.credential.user!.uid,
-                            type: state.type.name,
-                            credential: state.credential,
-                            countryCode:
-                                "+${(state.payload as PhoneLoginPayload).countryCode}");
-                      } else {
+                    if (state.type == AuthenticationType.email) {
+                      if (state.credential.user!.emailVerified) {
                         context.read<LoginCubit>().login(
                             phoneNumber: state.credential.user!.phoneNumber,
                             firebaseUserId: state.credential.user!.uid,
@@ -356,30 +337,45 @@ class LoginScreenState extends State<LoginScreen> {
                             credential: state.credential,
                             countryCode: null);
                       }
+                    } else if (state.type == AuthenticationType.phone) {
+                      context.read<LoginCubit>().login(
+                          phoneNumber:
+                              (state.payload as PhoneLoginPayload).phoneNumber,
+                          firebaseUserId: state.credential.user!.uid,
+                          type: state.type.name,
+                          credential: state.credential,
+                          countryCode:
+                              "+${(state.payload as PhoneLoginPayload).countryCode}");
+                    } else {
+                      context.read<LoginCubit>().login(
+                          phoneNumber: state.credential.user!.phoneNumber,
+                          firebaseUserId: state.credential.user!.uid,
+                          type: state.type.name,
+                          credential: state.credential,
+                          countryCode: null);
                     }
+                  }
 
-                    if (state is AuthenticationFail) {
-                      log('- ${state.error}');
-                      Widgets.hideLoder(context);
-                    }
+                  if (state is AuthenticationFail) {
+                    log('- ${state.error}');
+                    Widgets.hideLoder(context);
+                  }
 
-                    if (state is AuthenticationInProcess) {
-                      Widgets.showLoader(context);
-                    }
-                  },
-                  builder: (context, state) {
-                    return Builder(builder: (context) {
-                      return SingleChildScrollView(
-                        child: Form(
-                          key: _formKey,
-                          child: isOtpSent
-                              ? verifyOTPWidget()
-                              : buildLoginWidget(),
-                        ),
-                      );
-                    });
-                  },
-                ),
+                  if (state is AuthenticationInProcess) {
+                    Widgets.showLoader(context);
+                  }
+                },
+                builder: (context, state) {
+                  return Builder(builder: (context) {
+                    return SingleChildScrollView(
+                      child: Form(
+                        key: _formKey,
+                        child:
+                            isOtpSent ? verifyOTPWidget() : buildLoginWidget(),
+                      ),
+                    );
+                  });
+                },
               ),
             ),
           ),
@@ -537,7 +533,7 @@ class LoginScreenState extends State<LoginScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 25.0),
+              padding: const EdgeInsets.only(top: 40.0),
               child: Align(
                 alignment: AlignmentDirectional.bottomEnd,
                 child: FittedBox(
@@ -758,7 +754,7 @@ class LoginScreenState extends State<LoginScreen> {
 
   Widget termAndPolicyTxt() {
     return Padding(
-      padding: EdgeInsetsDirectional.only(bottom: 15.0, start: 25.0, end: 25.0),
+      padding: EdgeInsetsDirectional.only(bottom: 25.0, start: 25.0, end: 25.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.min,
@@ -866,7 +862,7 @@ class LoginScreenState extends State<LoginScreen> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 25.0),
+            padding: const EdgeInsets.only(top: 40.0),
             child: Align(
               alignment: AlignmentDirectional.bottomEnd,
               child: FittedBox(

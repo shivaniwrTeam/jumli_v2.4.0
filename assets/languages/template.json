@@ -592,5 +592,9 @@
   "loginWithEmail": "Login with Email",
   "continueWithEmail": "Continue with Email",
   "permanentRejected": "Permanent Rejected",
-  "softRejected": "Soft Rejected"
+  "softRejected": "Soft Rejected",
+  "noChatFound": "No chat found. Start a new conversation",
+  "settingsLbl": "Settings",
+  "microphonePermissionIsDeniedEnableIt": "Microphone permission is denied. Please enable it in settings.",
+  "other": "Other"
 }

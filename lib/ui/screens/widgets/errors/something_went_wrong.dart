@@ -37,11 +37,12 @@ class NoChatFound extends StatelessWidget {
             height: 20,
           ),
           CustomText(
-            "No chat found. Start a new conversation",
+            "noChatFound".translate(context),
             //"noChatFound".translate(context),
             fontSize: context.font.larger,
             color: context.color.territoryColor,
             fontWeight: FontWeight.w600,
+            textAlign: TextAlign.center,
           ),
         ],
       ),

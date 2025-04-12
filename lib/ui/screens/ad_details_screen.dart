@@ -170,7 +170,7 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
         target: LatLng(model.latitude!, model.longitude!), zoom: 13);
 
     if (!isAddedByMe) {
-      context.read<FetchItemReportReasonsListCubit>().fetch();
+      context.read<FetchItemReportReasonsListCubit>().fetch(context);
       context.read<FetchSafetyTipsListCubit>().fetchSafetyTips();
       context.read<FetchSellerRatingsCubit>().fetch(
           sellerId: (model.user?.id != null ? model.user!.id! : model.userId!));
@@ -251,291 +251,287 @@ class AdDetailsScreenState extends CloudState<AdDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: false,
-      bottom: true,
-      child: AnnotatedRegion(
-          value: SystemUiOverlayStyle(
-            statusBarColor: context.color.secondaryDetailsColor,
-          ),
-          child: BlocConsumer<FetchItemFromSlugCubit, FetchItemFromSlugState>(
-              listener: (context, state) {
-            if (state is FetchItemFromSlugSuccess) {
-              log('success');
-              initVariables(state.item);
-            }
-          }, builder: (context, state) {
-            if (state is FetchItemFromSlugInitial && widget.slug != null) {
-              context
-                  .read<FetchItemFromSlugCubit>()
-                  .fetchItemFromSlug(slug: widget.slug!);
-              log('fetching item');
-              return Material(
-                child: Center(
-                  child: UiUtils.progress(),
-                ),
-              );
-            } else if (state is FetchItemFromSlugLoading) {
-              log('loading');
-              return Material(
-                child: Center(
-                  child: UiUtils.progress(),
-                ),
-              );
-            } else if (state is FetchItemFromSlugFailure) {
-              log('failure');
-              return SomethingWentWrong();
-            }
-            return BlocListener<MakeAnOfferItemCubit, MakeAnOfferItemState>(
-              listener: (context, state) {
-                if (state is MakeAnOfferItemInProgress) {
-                  Widgets.showLoader(context);
-                }
-                if (state is MakeAnOfferItemSuccess ||
-                    state is MakeAnOfferItemFailure) {
-                  Widgets.hideLoder(context);
-                }
-              },
-              child: Scaffold(
-                appBar: UiUtils.buildAppBar(
-                  context,
-                  backgroundColor: context.color.secondaryDetailsColor,
-                  showBackButton: true,
-                  actions: [
-                    if (isAddedByMe && model.status == "active" ||
-                        model.status == 'approved')
-                      Padding(
-                        padding: EdgeInsetsDirectional.only(
-                            end: isAddedByMe &&
-                                    (model.status != "sold out" &&
-                                        model.status != "review" &&
-                                        model.status != "resubmitted" &&
-                                        model.status != "inactive" &&
-                                        model.status != "permanent rejected" &&
-                                        model.status != "soft rejected")
-                                ? 30.0
-                                : 15),
-                        child: IconButton(
-                          onPressed: () {
-                            HelperUtils.share(context, model.slug!);
-                          },
-                          icon: Icon(
-                            Icons.share,
-                            size: 24,
-                            color: context.color.textDefaultColor,
-                          ),
+    return AnnotatedRegion(
+        value: SystemUiOverlayStyle(
+          statusBarColor: context.color.secondaryDetailsColor,
+        ),
+        child: BlocConsumer<FetchItemFromSlugCubit, FetchItemFromSlugState>(
+            listener: (context, state) {
+          if (state is FetchItemFromSlugSuccess) {
+            log('success');
+            initVariables(state.item);
+          }
+        }, builder: (context, state) {
+          if (state is FetchItemFromSlugInitial && widget.slug != null) {
+            context
+                .read<FetchItemFromSlugCubit>()
+                .fetchItemFromSlug(slug: widget.slug!);
+            log('fetching item');
+            return Material(
+              child: Center(
+                child: UiUtils.progress(),
+              ),
+            );
+          } else if (state is FetchItemFromSlugLoading) {
+            log('loading');
+            return Material(
+              child: Center(
+                child: UiUtils.progress(),
+              ),
+            );
+          } else if (state is FetchItemFromSlugFailure) {
+            log('failure');
+            return SomethingWentWrong();
+          }
+          return BlocListener<MakeAnOfferItemCubit, MakeAnOfferItemState>(
+            listener: (context, state) {
+              if (state is MakeAnOfferItemInProgress) {
+                Widgets.showLoader(context);
+              }
+              if (state is MakeAnOfferItemSuccess ||
+                  state is MakeAnOfferItemFailure) {
+                Widgets.hideLoder(context);
+              }
+            },
+            child: Scaffold(
+              appBar: UiUtils.buildAppBar(
+                context,
+                backgroundColor: context.color.secondaryDetailsColor,
+                showBackButton: true,
+                actions: [
+                  if (isAddedByMe && model.status == "active" ||
+                      model.status == 'approved')
+                    Padding(
+                      padding: EdgeInsetsDirectional.only(
+                          end: isAddedByMe &&
+                                  (model.status != "sold out" &&
+                                      model.status != "review" &&
+                                      model.status != "resubmitted" &&
+                                      model.status != "inactive" &&
+                                      model.status != "permanent rejected" &&
+                                      model.status != "soft rejected")
+                              ? 30.0
+                              : 15),
+                      child: IconButton(
+                        onPressed: () {
+                          HelperUtils.share(context, model.slug!);
+                        },
+                        icon: Icon(
+                          Icons.share,
+                          size: 24,
+                          color: context.color.textDefaultColor,
                         ),
                       ),
-                    if (isAddedByMe &&
-                        (model.status != "sold out" &&
-                            model.status != "review" &&
-                            model.status != "resubmitted" &&
-                            model.status != "inactive" &&
-                            model.status != "permanent rejected"))
-                      MultiBlocProvider(
-                        providers: [
-                          BlocProvider(
-                            create: (context) => DeleteItemCubit(),
-                          ),
-                          BlocProvider(
-                            create: (context) => ChangeMyItemStatusCubit(),
-                          ),
-                        ],
-                        child: Builder(builder: (context) {
-                          return BlocListener<DeleteItemCubit, DeleteItemState>(
-                            listener: (context, deleteState) {
-                              if (deleteState is DeleteItemSuccess) {
-                                HelperUtils.showSnackBarMessage(context,
-                                    "deleteItemSuccessMsg".translate(context));
-                                context
-                                    .read<FetchMyItemsCubit>()
-                                    .deleteItem(model);
-                                Navigator.pop(context, "refresh");
-                              } else if (deleteState is DeleteItemFailure) {
+                    ),
+                  if (isAddedByMe &&
+                      (model.status != "sold out" &&
+                          model.status != "review" &&
+                          model.status != "resubmitted" &&
+                          model.status != "inactive" &&
+                          model.status != "permanent rejected"))
+                    MultiBlocProvider(
+                      providers: [
+                        BlocProvider(
+                          create: (context) => DeleteItemCubit(),
+                        ),
+                        BlocProvider(
+                          create: (context) => ChangeMyItemStatusCubit(),
+                        ),
+                      ],
+                      child: Builder(builder: (context) {
+                        return BlocListener<DeleteItemCubit, DeleteItemState>(
+                          listener: (context, deleteState) {
+                            if (deleteState is DeleteItemSuccess) {
+                              HelperUtils.showSnackBarMessage(context,
+                                  "deleteItemSuccessMsg".translate(context));
+                              context
+                                  .read<FetchMyItemsCubit>()
+                                  .deleteItem(model);
+                              Navigator.pop(context, "refresh");
+                            } else if (deleteState is DeleteItemFailure) {
+                              HelperUtils.showSnackBarMessage(
+                                  context, deleteState.errorMessage);
+                            }
+                          },
+                          child: BlocListener<ChangeMyItemStatusCubit,
+                              ChangeMyItemStatusState>(
+                            listener: (context, changeState) {
+                              if (changeState is ChangeMyItemStatusSuccess) {
                                 HelperUtils.showSnackBarMessage(
-                                    context, deleteState.errorMessage);
+                                    context, changeState.message);
+                                Navigator.pop(context, "refresh");
+                              } else if (changeState
+                                  is ChangeMyItemStatusFailure) {
+                                HelperUtils.showSnackBarMessage(
+                                    context, changeState.errorMessage);
                               }
                             },
-                            child: BlocListener<ChangeMyItemStatusCubit,
-                                ChangeMyItemStatusState>(
-                              listener: (context, changeState) {
-                                if (changeState is ChangeMyItemStatusSuccess) {
-                                  HelperUtils.showSnackBarMessage(
-                                      context, changeState.message);
-                                  Navigator.pop(context, "refresh");
-                                } else if (changeState
-                                    is ChangeMyItemStatusFailure) {
-                                  HelperUtils.showSnackBarMessage(
-                                      context, changeState.errorMessage);
-                                }
-                              },
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.only(end: 30.0),
-                                child: Container(
-                                  height: 24,
-                                  width: 24,
-                                  alignment: AlignmentDirectional.center,
-                                  child: PopupMenuButton(
-                                    color: context.color.territoryColor,
-                                    offset: Offset(-12, 15),
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(17),
-                                        bottomRight: Radius.circular(17),
-                                        topLeft: Radius.circular(17),
-                                        topRight: Radius.circular(0),
-                                      ),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.only(end: 30.0),
+                              child: Container(
+                                height: 24,
+                                width: 24,
+                                alignment: AlignmentDirectional.center,
+                                child: PopupMenuButton(
+                                  color: context.color.territoryColor,
+                                  offset: Offset(-12, 15),
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(17),
+                                      bottomRight: Radius.circular(17),
+                                      topLeft: Radius.circular(17),
+                                      topRight: Radius.circular(0),
                                     ),
-                                    child: SvgPicture.asset(
-                                      AppIcons.more,
-                                      width: 20,
-                                      height: 20,
-                                      fit: BoxFit.contain,
-                                      colorFilter: ColorFilter.mode(
-                                          context.color.textDefaultColor,
-                                          BlendMode.srcIn),
-                                    ),
-                                    itemBuilder: (context) => [
-                                      if (model.status == "active" ||
-                                          model.status == "approved")
-                                        PopupMenuItem(
-                                            onTap: () {
-                                              Future.delayed(Duration.zero, () {
-                                                context
-                                                    .read<
-                                                        ChangeMyItemStatusCubit>()
-                                                    .changeMyItemStatus(
-                                                        id: model.id!,
-                                                        status: 'inactive');
-                                              });
-                                            },
-                                            child: CustomText(
-                                              "deactivate".translate(context),
-                                              color: context.color.buttonColor,
-                                            )),
-                                      if (model.status == "active" ||
-                                          model.status == "approved" ||
-                                          model.status == 'soft rejected')
-                                        PopupMenuItem(
-                                          child: CustomText(
-                                            "lblremove".translate(context),
-                                            color: context.color.buttonColor,
-                                          ),
-                                          onTap: () async {
-                                            var delete = await UiUtils
-                                                .showBlurredDialoge(
-                                              context,
-                                              dialoge: BlurredDialogBox(
-                                                title: "deleteBtnLbl"
-                                                    .translate(context),
-                                                content: CustomText(
-                                                  "deleteitemwarning"
-                                                      .translate(context),
-                                                ),
-                                              ),
-                                            );
-                                            if (delete == true) {
-                                              Future.delayed(
-                                                Duration.zero,
-                                                () {
-                                                  context
-                                                      .read<DeleteItemCubit>()
-                                                      .deleteItem(model.id!);
-                                                },
-                                              );
-                                            }
-                                          },
-                                        ),
-                                    ],
                                   ),
+                                  child: SvgPicture.asset(
+                                    AppIcons.more,
+                                    width: 20,
+                                    height: 20,
+                                    fit: BoxFit.contain,
+                                    colorFilter: ColorFilter.mode(
+                                        context.color.textDefaultColor,
+                                        BlendMode.srcIn),
+                                  ),
+                                  itemBuilder: (context) => [
+                                    if (model.status == "active" ||
+                                        model.status == "approved")
+                                      PopupMenuItem(
+                                          onTap: () {
+                                            Future.delayed(Duration.zero, () {
+                                              context
+                                                  .read<
+                                                      ChangeMyItemStatusCubit>()
+                                                  .changeMyItemStatus(
+                                                      id: model.id!,
+                                                      status: 'inactive');
+                                            });
+                                          },
+                                          child: CustomText(
+                                            "deactivate".translate(context),
+                                            color: context.color.buttonColor,
+                                          )),
+                                    if (model.status == "active" ||
+                                        model.status == "approved" ||
+                                        model.status == 'soft rejected')
+                                      PopupMenuItem(
+                                        child: CustomText(
+                                          "lblremove".translate(context),
+                                          color: context.color.buttonColor,
+                                        ),
+                                        onTap: () async {
+                                          var delete =
+                                              await UiUtils.showBlurredDialoge(
+                                            context,
+                                            dialoge: BlurredDialogBox(
+                                              title: "deleteBtnLbl"
+                                                  .translate(context),
+                                              content: CustomText(
+                                                "deleteitemwarning"
+                                                    .translate(context),
+                                              ),
+                                            ),
+                                          );
+                                          if (delete == true) {
+                                            Future.delayed(
+                                              Duration.zero,
+                                              () {
+                                                context
+                                                    .read<DeleteItemCubit>()
+                                                    .deleteItem(model.id!);
+                                              },
+                                            );
+                                          }
+                                        },
+                                      ),
+                                  ],
                                 ),
                               ),
                             ),
-                          );
-                        }),
-                      ),
-                  ],
-                ),
-                backgroundColor: context.color.secondaryDetailsColor,
-                bottomNavigationBar: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: bottomButtonWidget()),
-                body: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(13.0, 0.0, 13.0, 13.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        setImageViewer(),
-                        if (isAddedByMe) setLikesAndViewsCount(),
-                        Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: CustomText(
-                              model.name!,
-                              color: context.color.textDefaultColor,
-                              fontSize: context.font.large,
-                              maxLines: 2,
-                            )),
-                        setPriceAndStatus(),
-                        if (isAddedByMe) setRejectedReason(),
-                        if (model.address != null) setAddress(isDate: true),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        if (Constant.isGoogleBannerAdsEnabled == "1") ...[
-                          Container(
-                            alignment: AlignmentDirectional.center,
-                            child:
-                                AdBannerWidget(), // Custom widget for banner ad
                           ),
-                        ],
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        if (isAddedByMe)
-                          if (!model.isFeature!) createFeaturesAds(),
-                        if (model.customFields!.isNotEmpty) customFields(),
-                        //detailsContainer Widget
-                        //Dynamic Ads here
-                        Divider(
-                            thickness: 1,
-                            color: context.color.textDefaultColor
-                                .withValues(alpha: 0.1)),
-                        setDescription(),
-                        Divider(
-                            thickness: 1,
-                            color: context.color.textDefaultColor
-                                .withValues(alpha: 0.1)),
-                        if (!isAddedByMe && model.user != null)
-                          setSellerDetails(),
-                        //Dynamic Ads here
-                        setLocation(),
-                        if (Constant.isGoogleBannerAdsEnabled == "1") ...[
-                          Divider(
-                              thickness: 1,
-                              color: context.color.textDefaultColor
-                                  .withValues(alpha: 0.1)),
-                          Container(
-                            alignment: AlignmentDirectional.center,
-                            child:
-                                AdBannerWidget(), // Custom widget for banner ad
-                          ),
-                        ],
-
-                        if (!isAddedByMe) reportedAdsWidget(),
-                        if (!isAddedByMe) relatedAds(),
-                        // const SizedBox(height: 15),
-                      ],
+                        );
+                      }),
                     ),
+                ],
+              ),
+              backgroundColor: context.color.secondaryDetailsColor,
+              bottomNavigationBar: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                  child: bottomButtonWidget()),
+              body: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(13.0, 0.0, 13.0, 13.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      setImageViewer(),
+                      if (isAddedByMe) setLikesAndViewsCount(),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: CustomText(
+                            model.name!,
+                            color: context.color.textDefaultColor,
+                            fontSize: context.font.large,
+                            maxLines: 2,
+                          )),
+                      setPriceAndStatus(),
+                      if (isAddedByMe) setRejectedReason(),
+                      if (model.address != null) setAddress(isDate: true),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      if (Constant.isGoogleBannerAdsEnabled == "1") ...[
+                        Container(
+                          alignment: AlignmentDirectional.center,
+                          child:
+                              AdBannerWidget(), // Custom widget for banner ad
+                        ),
+                      ],
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      if (isAddedByMe)
+                        if (!model.isFeature!) createFeaturesAds(),
+                      if (model.customFields!.isNotEmpty) customFields(),
+                      //detailsContainer Widget
+                      //Dynamic Ads here
+                      Divider(
+                          thickness: 1,
+                          color: context.color.textDefaultColor
+                              .withValues(alpha: 0.1)),
+                      setDescription(),
+                      Divider(
+                          thickness: 1,
+                          color: context.color.textDefaultColor
+                              .withValues(alpha: 0.1)),
+                      if (!isAddedByMe && model.user != null)
+                        setSellerDetails(),
+                      //Dynamic Ads here
+                      setLocation(),
+                      if (Constant.isGoogleBannerAdsEnabled == "1") ...[
+                        Divider(
+                            thickness: 1,
+                            color: context.color.textDefaultColor
+                                .withValues(alpha: 0.1)),
+                        Container(
+                          alignment: AlignmentDirectional.center,
+                          child:
+                              AdBannerWidget(), // Custom widget for banner ad
+                        ),
+                      ],
+
+                      if (!isAddedByMe) reportedAdsWidget(),
+                      if (!isAddedByMe) relatedAds(),
+                      // const SizedBox(height: 15),
+                    ],
                   ),
                 ),
               ),
-            );
-          })),
-    );
+            ),
+          );
+        }));
   }
 
   Widget reportedAdsWidget() {
